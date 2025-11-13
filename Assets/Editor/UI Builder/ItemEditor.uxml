@@ -42,7 +42,7 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="Right" style="width: 50%; height: auto; margin-right: 5px; margin-left: 2px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                         <ui:Label tabindex="-1" text="Discription" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" style="color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); height: 21px; padding-top: 10px; padding-bottom: 3px; padding-left: 3px; background-color: rgb(40, 40, 40); -unity-text-align: lower-left; padding-right: 2px; -unity-font-style: bold; text-overflow: clip; white-space: normal;" />
-                        <ui:IntegerField label="Price" value="0" name="Price" />
+                        <ui:IntegerField label="Price" value="0" name="Price" style="-unity-background-image-tint-color: rgb(255, 255, 255);" />
                         <ui:Slider label="SellPercentage" high-value="1" name="SellPercentage" show-input-field="true" />
                     </ui:VisualElement>
                 </ui:VisualElement>

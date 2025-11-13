@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class ItemDetails
 {
-    public int id; //id
+    public int itemId; //id
 
-    public string name;//名字
+    public string itemName;//名字
 
     public ItemType itemType;//类型
 
