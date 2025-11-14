@@ -13,26 +13,50 @@ MonoBehaviour:
   m_Name: ItemDataList_SO
   m_EditorClassIdentifier: 
   itemsDetailsList:
-  - itemId: 1001
-    itemName: "\u65A7\u5934"
-    itemType: 4
-    itemIcon: {fileID: 21300000, guid: 3714c3e6b5e3d498ebcd06d432b3dd89, type: 3}
+  - itemId: 1000
+    itemName: NEW ITEM
+    itemType: 0
+    itemIcon: {fileID: 0}
     itemOnWorldSprite: {fileID: 0}
-    itemDescription: "\u780D\u6811\u7684\u65A7\u5934"
-    itemUseRadius: 1
-    canPickedUp: 1
+    itemDescription: 
+    itemUseRadius: 0
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemId: 1001
+    itemName: NEW ITEM
+    itemType: 0
+    itemIcon: {fileID: 0}
+    itemOnWorldSprite: {fileID: 0}
+    itemDescription: 
+    itemUseRadius: 0
+    canPickedUp: 0
     canDropped: 0
     canCarried: 0
     itemPrice: 0
     sellPercentage: 0
   - itemId: 1002
-    itemName: "\u79CD\u5B50"
-    itemType: 4
-    itemIcon: {fileID: 21300000, guid: 567730b76d77440f09c9bb6adee6040f, type: 3}
+    itemName: NEW ITEM
+    itemType: 0
+    itemIcon: {fileID: 0}
     itemOnWorldSprite: {fileID: 0}
-    itemDescription: "\u780D\u6811\u7684\u65A7\u5934"
-    itemUseRadius: 1
-    canPickedUp: 1
+    itemDescription: 
+    itemUseRadius: 0
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemPrice: 0
+    sellPercentage: 0
+  - itemId: 1003
+    itemName: NEW ITEM
+    itemType: 0
+    itemIcon: {fileID: 0}
+    itemOnWorldSprite: {fileID: 0}
+    itemDescription: 
+    itemUseRadius: 0
+    canPickedUp: 0
     canDropped: 0
     canCarried: 0
     itemPrice: 0

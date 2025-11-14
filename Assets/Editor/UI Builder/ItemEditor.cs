@@ -26,9 +26,9 @@ public class ItemEditor : EditorWindow
     //默认预览图片
     private Sprite defaultIcon;
 
-    private ListView itemListView;
-
     private VisualElement iconPreview;
+
+    private ListView itemListView;
 
 
     [MenuItem("S STUDIO/ItemEditor")]
@@ -61,13 +61,35 @@ public class ItemEditor : EditorWindow
         itemDetailsSection = root.Q<ScrollView>("ItemDetails");
         iconPreview = itemDetailsSection.Q<VisualElement>("Icon");
 
+        //获取按键
+        root.Q<Button>("AddButton").clicked += OnAddItemClicked;
+        root.Q<Button>("DeleteButton").clicked += OnDeleteClicked;
         //加载数据
         LoadDataBase();
 
         //生成ListView
         GenerteListView();
     }
+    #region 按键事件
 
+    private void OnDeleteClicked()
+    {
+        itemList.Remove(activeItem);
+        itemListView.Rebuild();
+        itemDetailsSection.visible = false;
+    }
+
+    private void OnAddItemClicked()
+    {
+        ItemDetails newItem = new ItemDetails();
+        newItem.itemName = "NEW ITEM";
+        newItem.itemId = 1000 + itemList.Count;
+
+        itemList.Add(newItem);
+
+        itemListView.Rebuild();
+    }
+    #endregion
 
 
 
@@ -99,9 +121,9 @@ public class ItemEditor : EditorWindow
         {
             if (i < itemList.Count) 
             {
-                if (itemList[i].itemIcon!=null)
+                if (itemList[i].itemIcon != null) 
                 e.Q<VisualElement>("Icon").style.backgroundImage = itemList[i].itemIcon.texture;
-                e.Q<Label>("Name").text = itemList[i] ==null?"No ITEM" : itemList[i].itemName;
+                e.Q<Label>("Name").text = itemList[i] == null ? "No ITEM" : itemList[i].itemName;
             }
         };
 
@@ -147,16 +169,18 @@ public class ItemEditor : EditorWindow
         });
 
         //Icon
-        iconPreview.style.backgroundImage = activeItem.itemIcon.texture == null ? defaultIcon.texture : activeItem.itemIcon.texture;
+        iconPreview.style.backgroundImage = activeItem.itemIcon == null ? defaultIcon.texture : activeItem.itemIcon.texture;
         itemDetailsSection.Q<ObjectField>("ItemIcon").value = activeItem.itemIcon;
         itemDetailsSection.Q<ObjectField>("ItemIcon").RegisterValueChangedCallback(evt =>
         {
             Sprite newIcon = evt.newValue as Sprite;
             activeItem.itemIcon = newIcon;
 
-            iconPreview.style.backgroundImage = newIcon==null?defaultIcon.texture:newIcon.texture;
+            iconPreview.style.backgroundImage = newIcon == null ? defaultIcon.texture : newIcon.texture;
             itemListView.Rebuild();
         });
+
+
     }
 
 }
