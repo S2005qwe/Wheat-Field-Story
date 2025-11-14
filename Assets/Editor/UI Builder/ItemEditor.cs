@@ -160,7 +160,7 @@ public class ItemEditor : EditorWindow
         {
             activeItem.itemId = evt.newValue;
         });
-        //Name
+        //Name名字
         itemDetailsSection.Q<TextField>("ItemName").value = activeItem.itemName;
         itemDetailsSection.Q<TextField>("ItemName").RegisterValueChangedCallback(evt =>
         {
@@ -168,7 +168,17 @@ public class ItemEditor : EditorWindow
             itemListView.Rebuild();
         });
 
-        //Icon
+
+        //Type类型
+        itemDetailsSection.Q<EnumField>("ItemType").Init(activeItem.itemType);   //明确要绑定的枚举类型
+        itemDetailsSection.Q<EnumField>("ItemType").value = activeItem.itemType;
+        itemDetailsSection.Q<EnumField>("ItemType").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemType = (ItemType)evt.newValue;
+        });
+
+
+        //Icon图标
         iconPreview.style.backgroundImage = activeItem.itemIcon == null ? defaultIcon.texture : activeItem.itemIcon.texture;
         itemDetailsSection.Q<ObjectField>("ItemIcon").value = activeItem.itemIcon;
         itemDetailsSection.Q<ObjectField>("ItemIcon").RegisterValueChangedCallback(evt =>
@@ -179,6 +189,66 @@ public class ItemEditor : EditorWindow
             iconPreview.style.backgroundImage = newIcon == null ? defaultIcon.texture : newIcon.texture;
             itemListView.Rebuild();
         });
+        //其他所有变量的绑定
+        itemDetailsSection.Q<ObjectField>("ItemSprite").value = activeItem.itemOnWorldSprite;
+        itemDetailsSection.Q<ObjectField>("ItemSprite").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemOnWorldSprite = (Sprite)evt.newValue;
+        });
+
+
+        //Description描述
+        itemDetailsSection.Q<TextField>("Description").value = activeItem.itemDescription;
+        itemDetailsSection.Q<TextField>("Description").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemDescription = evt.newValue;
+        });
+
+        //UseRadius使用范围
+
+        itemDetailsSection.Q<IntegerField>("ItemUseRadius").value = activeItem.itemUseRadius;
+        itemDetailsSection.Q<IntegerField>("ItemUseRadius").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemUseRadius = evt.newValue;
+        });
+
+        //PickedUp 拾取
+        itemDetailsSection.Q<Toggle>("CanPickedUp").value = activeItem.canPickedUp;
+        itemDetailsSection.Q<Toggle>("CanPickedUp").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.canPickedUp = evt.newValue;
+        });
+
+        //Dropped 扔下
+        itemDetailsSection.Q<Toggle>("CanDropped").value = activeItem.canDropped;
+        itemDetailsSection.Q<Toggle>("CanDropped").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.canDropped = evt.newValue;
+        });
+
+        //Carried 举起
+        itemDetailsSection.Q<Toggle>("CanCarried").value = activeItem.canCarried;
+        itemDetailsSection.Q<Toggle>("CanCarried").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.canCarried = evt.newValue;
+        });
+
+
+        //价格
+        itemDetailsSection.Q<IntegerField>("Price").value = activeItem.itemPrice;
+        itemDetailsSection.Q<IntegerField>("Price").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.itemPrice = evt.newValue;
+        });
+
+
+        //出售百分比
+        itemDetailsSection.Q<Slider>("SellPercentage").value = activeItem.sellPercentage;
+        itemDetailsSection.Q<Slider>("SellPercentage").RegisterValueChangedCallback(evt =>
+        {
+            activeItem.sellPercentage = evt.newValue;
+        });
+
 
 
     }
