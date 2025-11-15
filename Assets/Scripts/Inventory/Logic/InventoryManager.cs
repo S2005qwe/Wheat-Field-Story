@@ -33,20 +33,77 @@ namespace SFarm.Inventory
         //添加物品
         public void AddItem(Item item,bool toDestory)
         {
-            //背包是否有空位
             //是否已经有该物品
-
-            InventoryItem newItem =new InventoryItem();
-            newItem.itemID = item.itemID;
-            newItem.itemAmount = 1;
-
-            PlayerBag.itemList[0] = newItem;
+            var index = GetItemIndexInBag(item.itemID);
+             AddItemAtIndex(item.itemID,index, 1);  
             Debug.Log(GetItemDetails(item.itemID).itemId+"Name: "+GetItemDetails(item.itemID).itemName);
             
             //如果可以销毁，则销毁物品
             if (toDestory)
             {
                 Destroy(item.gameObject);
+            }
+        }
+
+
+        /// <summary>
+        /// 检查背包是否有空位
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckBagCapacity()
+        {
+            for (int i = 0; i < PlayerBag.itemList.Count;i++)
+            {
+                if (PlayerBag.itemList[i].itemID == 0)
+                    return true;
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// 通过物品ID找到背包已有物品位置
+        /// </summary>
+        /// <param name="ID">物品ID</param>
+        /// <returns>1则没有这个物品否则返回序号</returns>
+        private int GetItemIndexInBag(int ID)
+        {
+            for (int i = 0; i < PlayerBag.itemList.Count; i++)
+            {
+                if (PlayerBag.itemList[i].itemID == ID)
+                    return i;
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// 在指定背包序号位置添加物品
+        /// </summary>
+        /// <param name="ID">物品ID</param>
+        /// <param name="index">序号</param>
+        /// <param name="amount">数据</param>
+        private void AddItemAtIndex(int ID,int index,int amount)
+        {
+            //通过索引来看，如果背包中没有这个物品,同时有空位
+            if (index == -1&& CheckBagCapacity())
+            {
+                //则创建一个物品
+                var item = new InventoryItem { itemID = ID, itemAmount = amount };
+                //创建物品后，查找空位
+                for(int i=0;i<PlayerBag.itemList.Count;i++)
+                {
+                    if (PlayerBag.itemList[i].itemID == 0)
+                    {
+                        PlayerBag.itemList[i] = item;
+                        break;
+                    }
+                }
+            }
+            else  //背包里有这个东西
+            {
+                int currentAmount = PlayerBag.itemList[index].itemAmount+amount;
+                var item =new InventoryItem { itemID = ID ,itemAmount=currentAmount};
+                PlayerBag.itemList[index] = item;
             }
         }
     }
