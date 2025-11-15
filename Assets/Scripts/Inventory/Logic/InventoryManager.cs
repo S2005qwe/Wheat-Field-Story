@@ -21,6 +21,23 @@ namespace SFarm.Inventory
             //Find找item用于i代名，通过i.itemId->ID
             return itemDataList_SO.itemsDetailsList.Find(i => i.itemId == ID);
         }
+
+        /// <summary>
+        /// 添加物品到Player背包里
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="toDestory"></param>
+        //添加物品
+        public void AddItem(Item item,bool toDestory)
+        {
+            Debug.Log(GetItemDetails(item.itemID).itemId+"Name: "+GetItemDetails(item.itemID).itemName);
+            
+            //如果可以销毁，则销毁物品
+            if (toDestory)
+            {
+                Destroy(item.gameObject);
+            }
+        }
     }
 }
 

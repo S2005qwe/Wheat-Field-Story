@@ -10,7 +10,7 @@ namespace SFarm.Inventory
 
         private SpriteRenderer spriteRenderer;
 
-        private ItemDetails itemDetails;
+        public ItemDetails itemDetails;
 
         private BoxCollider2D coll;
         private void Awake()
