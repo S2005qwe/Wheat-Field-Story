@@ -29,3 +29,13 @@ public class ItemDetails
     [Range(0,1)]
     public float sellPercentage;
 }
+
+//背包物品
+//为什么不用class,使用class需要判断是否为空
+//struct默认不可为空
+[System.Serializable]
+public struct InventoryItem
+{
+    public int itemID;
+    public int itemAmount;
+}

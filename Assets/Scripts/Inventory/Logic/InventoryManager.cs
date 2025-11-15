@@ -8,7 +8,10 @@ namespace SFarm.Inventory
     {
 
         //管理数据
+        [Header("物品数据")]
         public ItemDataList_SO itemDataList_SO;
+        [Header("背包数据")]
+        public InventoryBag_SO PlayerBag;
 
         /// <summary>
         /// 通过ID返回物品信息
@@ -30,6 +33,14 @@ namespace SFarm.Inventory
         //添加物品
         public void AddItem(Item item,bool toDestory)
         {
+            //背包是否有空位
+            //是否已经有该物品
+
+            InventoryItem newItem =new InventoryItem();
+            newItem.itemID = item.itemID;
+            newItem.itemAmount = 1;
+
+            PlayerBag.itemList[0] = newItem;
             Debug.Log(GetItemDetails(item.itemID).itemId+"Name: "+GetItemDetails(item.itemID).itemName);
             
             //如果可以销毁，则销毁物品
