@@ -13,6 +13,10 @@ namespace SFarm.Inventory
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
 
+        private void Start()
+        {
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
         /// <summary>
         /// 通过ID返回物品信息
         /// </summary>
@@ -43,6 +47,9 @@ namespace SFarm.Inventory
             {
                 Destroy(item.gameObject);
             }
+
+            //更新UI 
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
         }
 
 
