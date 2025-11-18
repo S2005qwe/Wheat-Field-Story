@@ -7,10 +7,8 @@ public enum ItemType
 
     //тс╡щ
     ReapableScenery
-<<<<<<< Updated upstream
-=======
-}
 
+}
 public enum SlotType
 {
     Bag,Box,Shop
@@ -19,5 +17,4 @@ public enum SlotType
 public enum InventoryLocation
 {
     Player,Box
->>>>>>> Stashed changes
 }
