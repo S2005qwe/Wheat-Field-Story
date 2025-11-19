@@ -13,6 +13,10 @@ namespace SFarm.Inventory
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
 
+        private void Start()
+        {
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
         /// <summary>
         /// 通过ID返回物品信息
         /// </summary>
@@ -43,6 +47,9 @@ namespace SFarm.Inventory
             {
                 Destroy(item.gameObject);
             }
+
+            //更新UI 
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
         }
 
 
@@ -105,6 +112,30 @@ namespace SFarm.Inventory
                 var item =new InventoryItem { itemID = ID ,itemAmount=currentAmount};
                 PlayerBag.itemList[index] = item;
             }
+        }
+
+
+        /// <summary>
+        /// Player背包范围内交换物品
+        /// </summary>
+        /// <param name="fromIndex">起始序号</param>
+        /// <param name="toIndex">目标数据序号</param>
+        public void SwapItem(int fromIndex,int toIndex)
+        {
+            InventoryItem currentItem = PlayerBag.itemList[fromIndex];
+            InventoryItem targetItem = PlayerBag.itemList[ toIndex ];
+
+            if(targetItem.itemID !=0)
+            {
+                PlayerBag.itemList[fromIndex] = targetItem;
+                PlayerBag.itemList[ toIndex ] = currentItem;
+            }
+            else
+            {
+                PlayerBag.itemList[toIndex] = currentItem;
+                PlayerBag.itemList[fromIndex]=new InventoryItem();
+            }
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
     }
 }
