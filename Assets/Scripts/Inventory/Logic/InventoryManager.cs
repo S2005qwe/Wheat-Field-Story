@@ -113,6 +113,30 @@ namespace SFarm.Inventory
                 PlayerBag.itemList[index] = item;
             }
         }
+
+
+        /// <summary>
+        /// Player背包范围内交换物品
+        /// </summary>
+        /// <param name="fromIndex">起始序号</param>
+        /// <param name="toIndex">目标数据序号</param>
+        public void SwapItem(int fromIndex,int toIndex)
+        {
+            InventoryItem currentItem = PlayerBag.itemList[fromIndex];
+            InventoryItem targetItem = PlayerBag.itemList[ toIndex ];
+
+            if(targetItem.itemID !=0)
+            {
+                PlayerBag.itemList[fromIndex] = targetItem;
+                PlayerBag.itemList[ toIndex ] = currentItem;
+            }
+            else
+            {
+                PlayerBag.itemList[toIndex] = currentItem;
+                PlayerBag.itemList[fromIndex]=new InventoryItem();
+            }
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
     }
 }
 
