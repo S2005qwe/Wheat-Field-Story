@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
+/// <summary>
+/// 切换边界
+/// </summary>
 public class SwitchBounds : MonoBehaviour
 {
     //TODO:切换场景后更改调用

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 检测玩家进入植被后面变透明
+/// </summary>
 public class TriggerItemFader : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)

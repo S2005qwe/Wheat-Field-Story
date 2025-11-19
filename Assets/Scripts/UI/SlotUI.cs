@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 namespace SFarm.Inventory
 {
-    public class SlotUI : MonoBehaviour,IPointerClickHandler
+    public class SlotUI : MonoBehaviour,IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
     {
         [Header("组件获取")]
         [SerializeField] private Image slotImage;
@@ -71,6 +71,33 @@ namespace SFarm.Inventory
 
             inventoryUI.UpdateSlotHightlight(slotIndex);
 
+        }
+
+        //拖拽时
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if(itemAmount != 0)
+            {
+                inventoryUI.dragItem.enabled = true;
+                inventoryUI.dragItem.sprite = slotImage.sprite;
+                inventoryUI.dragItem.SetNativeSize();
+
+                isSelected = true;
+                inventoryUI.UpdateSlotHightlight(slotIndex);
+            }
+        }
+
+        //拖拽中
+        public void OnDrag(PointerEventData eventData)
+        {
+            inventoryUI.dragItem.transform.position = Input.mousePosition;
+        }
+
+        //拖拽后
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            inventoryUI.dragItem.enabled = false;
+            Debug.Log(eventData.pointerCurrentRaycast.gameObject);
         }
     }
 }
