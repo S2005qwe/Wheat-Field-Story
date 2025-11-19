@@ -59,11 +59,35 @@ namespace SFarm.Inventory
                     break;
             }
         }
+
+        /// <summary>
+        /// 打开关闭背包UI，Button调用事件
+        /// </summary>
         public void OpenBagUI()
         {
             bagOpened = !bagOpened;
 
             bagUI.SetActive(bagOpened);
+        }
+
+
+        /// <summary>
+        /// 更新Slot高亮显示
+        /// </summary>
+        /// <param name="index"></param>
+        public void UpdateSlotHightlight(int index)
+        {
+            foreach(var slot in playerSlots)
+            {
+                if(slot.isSelected&&slot.slotIndex == index)
+                {
+                    slot.slotHightlight.gameObject.SetActive(true);
+                }
+                else
+                {
+                    slot.slotHightlight.gameObject.SetActive(false);
+                }
+            }    
         }
     }
 
