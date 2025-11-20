@@ -7,6 +7,7 @@ namespace SFarm.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        public ItemToolTip itemTooltip;
         [Header("ÍÏ×§Í¼Æ¬")]
         public Image dragItem;
         [Header("Íæ¼Ò±³°üUI")]
