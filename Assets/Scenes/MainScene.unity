@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 598325125}
   - component: {fileID: 598325126}
   - component: {fileID: 598325127}
+  - component: {fileID: 598325128}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -481,6 +482,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e985ba030cc924d9e553d7a476e852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &598325128
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598325120}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 314624c6303ccb44da6561c23afbbbb6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &822547210
 GameObject:
   m_ObjectHideFlags: 3
@@ -579,6 +601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 959027376}
   - component: {fileID: 959027377}
+  - component: {fileID: 959027378}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -653,6 +676,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &959027378
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959027375}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 29216bd6cda9d5f4a900dac831b9e77d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &982433870
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013578162}
   - component: {fileID: 1013578163}
+  - component: {fileID: 1013578164}
   m_Layer: 0
   m_Name: Hair
   m_TagString: Untagged
@@ -821,6 +866,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1013578164
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013578161}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: fe69fcbe8402e7e48ad0ea8f1d8d959b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1416984823
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1416984824}
   - component: {fileID: 1416984825}
+  - component: {fileID: 1416984826}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -905,6 +972,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1416984826
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416984823}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: ff4d15a7ab44f994aabcc0cc86ed9272, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1771861630
 GameObject:
   m_ObjectHideFlags: 0
