@@ -629,6 +629,7 @@ GameObject:
   - component: {fileID: 259466259}
   - component: {fileID: 259466261}
   - component: {fileID: 259466260}
+  - component: {fileID: 259466262}
   m_Layer: 5
   m_Name: GameTime
   m_TagString: Untagged
@@ -699,6 +700,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259466258}
   m_CullTransparentMesh: 1
+--- !u!114 &259466262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259466258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffe9ff912d966e449bc9cf141fc64c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayNightImage: {fileID: 888134861}
+  clockParent: {fileID: 1661009642}
+  seasonImage: {fileID: 1320172434}
+  dateText: {fileID: 95753335}
+  timeText: {fileID: 1325198460}
+  seasonSprites:
+  - {fileID: 21300000, guid: 8b9910d91179b4a099ab476320fa5ae7, type: 3}
+  - {fileID: 21300000, guid: 9a3bd1653028b428e882fa7ea297e736, type: 3}
+  - {fileID: 21300000, guid: a94f97806ef1a4a20ad529791fc938a5, type: 3}
+  - {fileID: 21300000, guid: cf64f70ccd4ea4cb3948f885a2e21562, type: 3}
 --- !u!1001 &303917457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3824,7 +3847,7 @@ GameObject:
   - component: {fileID: 1325198461}
   - component: {fileID: 1325198460}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Time Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
