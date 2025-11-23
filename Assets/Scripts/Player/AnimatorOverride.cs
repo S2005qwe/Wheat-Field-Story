@@ -22,11 +22,20 @@ public class AnimatorOverride : MonoBehaviour
     void OnEnable()
     {
         EventHandler.ItemSelectedEvent+=OnItemSelectedEvent;
+        EventHandler.BeforeSceneUnloadEvent += OnBeforSceneUnloadEvent;
     }
     void OnDisable()
     {
         EventHandler.ItemSelectedEvent-=OnItemSelectedEvent;
+        EventHandler.BeforeSceneUnloadEvent -= OnBeforSceneUnloadEvent;
     }
+
+    private void OnBeforSceneUnloadEvent()
+    {
+        holdItem.enabled = false;
+        SwitchAnimator(PartType.None);
+    }
+
     private void OnItemSelectedEvent(ItemDetails itemDetails,bool isSelected)
     {
         //WORKFLOW:不同工具返回不同的动画在这里补全

@@ -8,6 +8,7 @@ namespace SFarm.Transition
 {
     public class TransitionManager : MonoBehaviour
     {
+        [SceneName]
         public string startScene = string.Empty;
 
 
@@ -21,29 +22,39 @@ namespace SFarm.Transition
         {
             EventHandler.TransitionEvent -= OnTransitionEvent;
         }
-        private void OnTransitionEvent(string sceneToGo, Vector3 positionToGO)
-        {
-            StartCoroutine(Transition(sceneToGo, positionToGO));
-        }
-        private void Start()
+         private void Start()
         {
             StartCoroutine(LoadSceneSetActive(startScene));
         }
 
+        private void OnTransitionEvent(string sceneToGo, Vector3 positionToGO)
+        {
+            StartCoroutine(Transition(sceneToGo, positionToGO));
+        }
+       
 
         /// <summary>
         /// 场景切换
         /// </summary>
         /// <param name="sceneName">目标场景</param>
-        /// <param name="tragetPosition">目标位置</param>
+        /// <param name="targetPosition">目标位置</param>
         /// <returns></returns>
 
-        private IEnumerator Transition(string sceneName, Vector3 tragetPosition)
+        private IEnumerator Transition(string sceneName, Vector3 targetPosition)
         {
-            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            
+            EventHandler.CallBeforeSceneUnloadEvent();
 
+            yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
             yield return LoadSceneSetActive(sceneName);
+
+            //移动人物坐标
+            EventHandler.CallMoveToPosition(targetPosition);
+
+            EventHandler.CallAfterSceneLoadedEvent();
+
+            
         }
 
 

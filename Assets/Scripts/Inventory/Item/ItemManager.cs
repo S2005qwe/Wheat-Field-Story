@@ -14,16 +14,20 @@ namespace SFarm.Inventory
         private void OnEnable()
         {
             EventHandler.InstaniateItemInScene += OnInstaniateItemInScene;
+            EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
 
         }
         private void OnDisable()
         {
             EventHandler.InstaniateItemInScene -= OnInstaniateItemInScene;
+            EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         }
-        private void Start()
+
+        private void OnAfterSceneLoadedEvent()
         {
             itemParent = GameObject.FindWithTag("ItemParent").transform;
         }
+
 
         private void OnInstaniateItemInScene(int ID, Vector3 pos)
         {
