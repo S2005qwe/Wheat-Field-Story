@@ -27,18 +27,25 @@ public static class EventHandler
         ItemSelectedEvent?.Invoke(itemDetails,isSelected);
     }
 
+
     public static event Action<int, int> GameMinuteEvent;
-
-
     public static void CallGameMinuteEvent(int minute,int hour)
     {
         GameMinuteEvent?.Invoke(minute,hour);
     }
 
+
     public static event Action<int, int,int,int ,Season>GameDataEvent;
     public static void CallGameDataEvent(int hour,int day,int month,int year,Season season)
     {
         GameDataEvent?.Invoke(hour,day,month,year,season);  
+    }
+
+
+    public static event Action<string, Vector3> TransitionEvent;
+    public static void CallTransitionEvent(string sceneName,Vector3 pos)
+    {
+        TransitionEvent?.Invoke(sceneName,pos);
     }
 
 }
