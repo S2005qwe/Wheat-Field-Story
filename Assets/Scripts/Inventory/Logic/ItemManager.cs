@@ -7,9 +7,9 @@ namespace SFarm.Inventory
 {
     public class ItemManager : MonoBehaviour
     {
-        public Item itemPrfabs;
+        public Item itemPrfabs;  //物品预制体
 
-        private Transform itemParent;
+        private Transform itemParent; //用于物品放在父物体下
 
         private void OnEnable()
         {
@@ -23,12 +23,15 @@ namespace SFarm.Inventory
             EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         }
 
+
+        //加载场景后寻找父物体
         private void OnAfterSceneLoadedEvent()
         {
             itemParent = GameObject.FindWithTag("ItemParent").transform;
         }
 
 
+        //示例化物品到场景中
         private void OnInstaniateItemInScene(int ID, Vector3 pos)
         {
             var item = Instantiate(itemPrfabs,pos,Quaternion.identity,itemParent);

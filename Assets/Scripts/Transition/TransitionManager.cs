@@ -11,7 +11,9 @@ namespace SFarm.Transition
         [SceneName]
         public string startScene = string.Empty;
 
+        private CanvasGroup fadeCanvasGroup;
 
+        private bool isFade;
         private void OnEnable()
         {
             EventHandler.TransitionEvent += OnTransitionEvent;
@@ -25,10 +27,12 @@ namespace SFarm.Transition
          private void Start()
         {
             StartCoroutine(LoadSceneSetActive(startScene));
+            fadeCanvasGroup = FindObjectOfType<CanvasGroup>();
         }
 
         private void OnTransitionEvent(string sceneToGo, Vector3 positionToGO)
         {
+            if(!isFade)
             StartCoroutine(Transition(sceneToGo, positionToGO));
         }
        
@@ -44,13 +48,15 @@ namespace SFarm.Transition
         {
             
             EventHandler.CallBeforeSceneUnloadEvent();
+            yield return Fade(1);
 
             yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
             yield return LoadSceneSetActive(sceneName);
-
+            
             //移动人物坐标
             EventHandler.CallMoveToPosition(targetPosition);
+            yield return Fade(0);
 
             EventHandler.CallAfterSceneLoadedEvent();
 
@@ -71,6 +77,31 @@ namespace SFarm.Transition
 
             SceneManager.SetActiveScene(newScene);
         }
+
+
+        /// <summary>
+        /// 淡入淡出场景
+        /// </summary>
+        /// <param name="targetAlpha">1是黑，0是透明</param>
+        /// <returns></returns>
+        private IEnumerator Fade(float targetAlpha )
+        {
+            isFade = true;
+
+            fadeCanvasGroup.blocksRaycasts = true;
+
+            float speed = Mathf.Abs(fadeCanvasGroup.alpha-targetAlpha)/Settings.fadeDuration;
+
+            while (!Mathf.Approximately(fadeCanvasGroup.alpha,targetAlpha))
+            {
+                fadeCanvasGroup.alpha = Mathf.MoveTowards(fadeCanvasGroup.alpha, targetAlpha, speed * Time.deltaTime);
+                yield return null;
+            }
+            fadeCanvasGroup.blocksRaycasts = false;
+            isFade = false;
+            
+        }
+
     }
 
 }

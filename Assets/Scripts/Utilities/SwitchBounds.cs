@@ -20,9 +20,15 @@ public class SwitchBounds : MonoBehaviour
     private void SwitchConfinerShape()
     {
         PolygonCollider2D confinerShape = GameObject.FindGameObjectWithTag("BoundsConfiner").GetComponent<PolygonCollider2D>();
+
+        Debug.Log(confinerShape.name);
         CinemachineConfiner confiner = GetComponent<CinemachineConfiner>();
+
+        Debug.Log(confiner.name);
+
         confiner.m_BoundingShape2D = confinerShape;
 
+        Debug.Log(confiner.m_BoundingShape2D.name);
         //Çå³ý»º´æ
         confiner.InvalidatePathCache();
     }

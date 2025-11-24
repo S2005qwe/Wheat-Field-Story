@@ -4,42 +4,51 @@ using UnityEngine;
 
 namespace SFarm.Inventory
 {
+    /// <summary>
+    /// 背包管理系统
+    /// </summary>
     public class InventoryManager : Singleton<InventoryManager>
     {
 
         //管理数据
         [Header("物品数据")]
         public ItemDataList_SO itemDataList_SO;
+
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
 
         private void Start()
         {
+            //更新背包UI
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
+
+
         /// <summary>
-        /// 通过ID返回物品信息
+        /// 查找数据（通过ID返回找到物品全部信息）
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        //查找数据（通过ID返回找到物品信息）
         public ItemDetails GetItemDetails(int ID)
         {
-            //Find找item用于i代名，通过i.itemId->ID
+            //Find找item用于i代名，通过i.itemId->ID，返回物品数据的列表中第i个
             return itemDataList_SO.itemsDetailsList.Find(i => i.itemId == ID);
         }
+
+
 
         /// <summary>
         /// 添加物品到Player背包里
         /// </summary>
         /// <param name="item"></param>
         /// <param name="toDestory"></param>
-        //添加物品
+
         public void AddItem(Item item,bool toDestory)
         {
             //是否已经有该物品
             var index = GetItemIndexInBag(item.itemID);
              AddItemAtIndex(item.itemID,index, 1);  
+
             Debug.Log(GetItemDetails(item.itemID).itemId+"Name: "+GetItemDetails(item.itemID).itemName);
             
             //如果可以销毁，则销毁物品
@@ -48,7 +57,7 @@ namespace SFarm.Inventory
                 Destroy(item.gameObject);
             }
 
-            //更新UI 
+            //更新背包UI 
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
         }
 

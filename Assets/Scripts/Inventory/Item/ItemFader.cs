@@ -29,7 +29,7 @@ public class ItemFader : MonoBehaviour
         Color targetColor = new Color(1, 1, 1, 1);
 
         //使用DoTween插件
-        spriteRenderer.DOColor(targetColor, Settings.fadeDuration);
+        spriteRenderer.DOColor(targetColor, Settings.ItemFadeDuration);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class ItemFader : MonoBehaviour
         Color targetColor = new Color(1, 1, 1, Settings.targetAlpha);
 
         //使用DoTween插件
-        spriteRenderer.DOColor(targetColor, Settings.fadeDuration);
+        spriteRenderer.DOColor(targetColor, Settings.ItemFadeDuration);
     }
 
 }

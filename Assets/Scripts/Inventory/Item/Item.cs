@@ -6,18 +6,20 @@ namespace SFarm.Inventory
 {
     public class Item : MonoBehaviour
     {
-        public int itemID;
+        public int itemID;  //物品ID
 
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer spriteRenderer; //物品图标
 
-        public ItemDetails itemDetails;
+        public ItemDetails itemDetails; //物品数据
 
-        private BoxCollider2D coll;
+        private BoxCollider2D coll; //物品身上的碰撞器
+
         private void Awake()
         {
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             coll = GetComponent<BoxCollider2D>();
         }
+
 
         private void Start()
         {
@@ -37,6 +39,7 @@ namespace SFarm.Inventory
 
             if(itemDetails !=null)
             {
+                //将世界图标赋值给它，有则给它 没有则把icon给它
                 spriteRenderer.sprite = itemDetails.itemOnWorldSprite != null ? itemDetails.itemOnWorldSprite : itemDetails.itemIcon;    
                 
                 //修改碰撞体尺寸
