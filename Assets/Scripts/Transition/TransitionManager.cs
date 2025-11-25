@@ -11,7 +11,7 @@ namespace SFarm.Transition
         [SceneName]
         public string startScene = string.Empty;
 
-        private CanvasGroup fadeCanvasGroup;
+        public CanvasGroup fadeCanvasGroup;
 
         private bool isFade;
         private void OnEnable()
@@ -57,6 +57,7 @@ namespace SFarm.Transition
             //移动人物坐标
             EventHandler.CallMoveToPosition(targetPosition);
             EventHandler.CallAfterSceneLoadedEvent();
+
             yield return Fade(0);
 
 
