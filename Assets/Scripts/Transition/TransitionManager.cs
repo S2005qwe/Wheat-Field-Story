@@ -56,11 +56,10 @@ namespace SFarm.Transition
             
             //移动人物坐标
             EventHandler.CallMoveToPosition(targetPosition);
+            EventHandler.CallAfterSceneLoadedEvent();
             yield return Fade(0);
 
-            EventHandler.CallAfterSceneLoadedEvent();
 
-            
         }
 
 
