@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace SFram.Map
+namespace SFarm.Map
 {
-    public class GirdMapManager : MonoBehaviour
+    public class GirdMapManager : Singleton<GirdMapManager>
     {
         [Header("地图信息")]
         public List<MapData_SO> mapDataList;
@@ -82,6 +83,18 @@ namespace SFram.Map
             }
             return null;
         }
+
+        /// <summary>
+        /// 根据鼠标网格坐标返回瓦片信息
+        /// </summary>
+        /// <param name="mouseGridPos">鼠标网格坐标</param>
+        /// <returns></returns>
+        public TileDetails GetTileDetailsOnMousePosition(Vector3Int mouseGridPos)
+        {
+            string key = mouseGridPos.x + "x" + mouseGridPos.y + "y" + SceneManager.GetActiveScene().name;
+            return GetTileDetails(key);
+        }
+
     }
 
 }

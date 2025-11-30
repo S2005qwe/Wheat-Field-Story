@@ -1,23 +1,27 @@
-using SFram.Map;
+using SFarm.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 public class CursorManager : MonoBehaviour
 {
     public Sprite normal, tool, seed,item;
     private Sprite currentSprite;
     private Image cursorImage;
+    public Image buildImage;
     private RectTransform cursorCanvas;
 
     private Camera mainCamera;
-    private Grid currentGird;
+    private Grid currentGrid;
     private Vector3 mouseWorldPos;
-    private Vector3Int mouseGirdPos;
+    private Vector3Int mouseGridPos;
 
-    private bool curcorEnable;
+    private bool cursorEnable;
+    private bool cursorPositionValid;
+
+    private ItemDetails currentItem;
+    private Transform playerTransform => FindObjectOfType<Player>().transform;
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
@@ -48,7 +52,7 @@ public class CursorManager : MonoBehaviour
         if (cursorCanvas == null)
             return;
         cursorImage.transform.position = Input.mousePosition;
-        if(!InteractWithUI()&& curcorEnable)
+        if (!InteractWithUI() && cursorEnable) 
         {
             SetCursorImage(currentSprite);
             CheckCursorValid();
@@ -60,13 +64,13 @@ public class CursorManager : MonoBehaviour
     }
     private void OnBeforeSceneUnloadEvent()
     {
-        curcorEnable = false;
+        cursorEnable = false;
     }
     private void OnAfterSceneLoadedEvent()
     {
-        currentGird = FindObjectOfType<Grid>();
-        curcorEnable = true;
+        currentGrid = FindObjectOfType<Grid>();
     }
+    #region 设置鼠标图片
     /// <summary>
     /// 设置鼠标图片
     /// </summary>
@@ -76,6 +80,27 @@ public class CursorManager : MonoBehaviour
         cursorImage.sprite = sprite;
         cursorImage.color = new Color(1, 1, 1, 1);
     }
+
+    /// <summary>
+    /// 设置鼠标可用
+    /// </summary>
+    private void SetCursorValid()
+    {
+        cursorPositionValid = true;
+        cursorImage.color = new Color(1, 1, 1, 1);
+  
+    }
+    /// <summary>
+    /// 设置鼠标不可用
+    /// </summary>
+    private void SetCursorInValid()
+    {
+        cursorPositionValid = false;
+        cursorImage.color = new Color(1, 0, 0, 0.4f);
+      
+    }
+    #endregion
+
     /// <summary>
     /// 物品选择事件函数
     /// </summary>
@@ -83,12 +108,17 @@ public class CursorManager : MonoBehaviour
     /// <param name="isSelcted"></param>
     private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelcted)
     {
+        
         if(!isSelcted)
         {
+            currentItem = null;
+            cursorEnable = false;
             currentSprite = normal;
         }
         else //物品被选中才切换图片
         {
+            currentItem = itemDetails;
+            
             //WORKFLOW:添加所有类型对应的图片
             currentSprite = itemDetails.itemType switch
             {
@@ -103,6 +133,7 @@ public class CursorManager : MonoBehaviour
                 ItemType.CollectTool => tool,
                 _ => normal
             };
+            cursorEnable = true;
         }
         
     }
@@ -110,9 +141,35 @@ public class CursorManager : MonoBehaviour
     {
         // 转换鼠标屏幕坐标到世界坐标（z轴设为0，避免深度问题）
         mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -mainCamera.transform.position.z));
-        mouseGirdPos = currentGird.WorldToCell(mouseWorldPos);
+        mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
 
-        Debug.Log("WorldPos:" + mouseWorldPos + "GridPos" + mouseGirdPos);
+       
+        TileDetails currentTile = GirdMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
+        var playerGridPos = currentGrid.WorldToCell(playerTransform.position);
+
+        //判断在使用范围内
+        if (Mathf.Abs(mouseGridPos.x - playerGridPos.x) > currentItem.itemUseRadius || Mathf.Abs(mouseGridPos.y - playerGridPos.y) > currentItem.itemUseRadius)
+        {
+            SetCursorInValid();
+            return;
+        }
+        if (currentTile != null)
+        {
+            switch (currentItem.itemType)
+            {
+                case ItemType.Commodity:
+                    if (currentTile.canDropItem) 
+                        SetCursorValid();
+                    else 
+                        SetCursorInValid();
+                    break;
+            }
+        }
+        else
+        {
+            SetCursorInValid();
+        }
+       
     }
 
     //是否与UI互动
