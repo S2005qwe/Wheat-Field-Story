@@ -63,7 +63,7 @@ public class GridMap : MonoBehaviour
                         {
                             TileProperty newTile = new TileProperty
                             {
-                                tileCoordibate = new Vector2Int(x, y),
+                                tileCoordinate = new Vector2Int(x, y),
                                 gridType = this.gridType,
                                 boolTypeValue = true
                             };

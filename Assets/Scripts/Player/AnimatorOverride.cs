@@ -42,7 +42,7 @@ public class AnimatorOverride : MonoBehaviour
         PartType currentType = itemDetails.itemType switch
         {
             ItemType.Seed=>PartType.Carry,
-            ItemType.Commondity=>PartType.Carry,
+            ItemType.Commodity=>PartType.Carry,
             _=>PartType.None,
         };
         if(isSelected == false)

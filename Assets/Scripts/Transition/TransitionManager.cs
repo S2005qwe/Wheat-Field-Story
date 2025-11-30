@@ -24,10 +24,13 @@ namespace SFarm.Transition
         {
             EventHandler.TransitionEvent -= OnTransitionEvent;
         }
-         private void Start()
+         private IEnumerator Start()
         {
-            StartCoroutine(LoadSceneSetActive(startScene));
             fadeCanvasGroup = FindObjectOfType<CanvasGroup>();
+            
+            yield return LoadSceneSetActive(startScene);
+            EventHandler.CallAfterSceneLoadedEvent();
+
         }
 
         private void OnTransitionEvent(string sceneToGo, Vector3 positionToGO)

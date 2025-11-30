@@ -27,7 +27,7 @@ public class ItemToolTip : MonoBehaviour
         descriptionText.text = itemDetails.itemDescription;
 
         //
-        if (itemDetails.itemType == ItemType.Seed || itemDetails.itemType == ItemType.Commondity||itemDetails.itemType==ItemType.Furniture)
+        if (itemDetails.itemType == ItemType.Seed || itemDetails.itemType == ItemType.Commodity||itemDetails.itemType==ItemType.Furniture)
         {
             bottomPart.SetActive(true);
             var price = itemDetails.itemPrice;
@@ -51,7 +51,7 @@ public class ItemToolTip : MonoBehaviour
         return itemType switch
         {
             ItemType.Seed => "种子",
-            ItemType.Commondity =>"商品",
+            ItemType.Commodity =>"商品",
             ItemType.Furniture=>"家具",
             ItemType.BreakTool =>"工具",
             ItemType.ChopTool =>"工具",
