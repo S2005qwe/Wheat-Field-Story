@@ -29,7 +29,7 @@ namespace SFarm.Inventory
         private void Start()
         {
             isSelected = false;
-            if (itemDetails.itemId == 0)
+            if (itemDetails == null)
             {
                 UpdateEmptySlot();
             }
@@ -56,8 +56,10 @@ namespace SFarm.Inventory
             if (isSelected)
             {
                 isSelected = false;
+                inventoryUI.UpdateSlotHightlight(-1);
+                EventHandler.CallItemSelectedEvent(itemDetails, isSelected);
             }
-
+            itemDetails = null;
             slotImage.enabled = false;
             amountText.text = string.Empty;
             button.interactable = false;
@@ -65,7 +67,7 @@ namespace SFarm.Inventory
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (itemAmount == 0) return;
+            if (itemDetails == null) return;
 
             isSelected = !isSelected;
 

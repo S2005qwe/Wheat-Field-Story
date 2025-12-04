@@ -70,6 +70,8 @@ public class SerializableVector3
         return new Vector2Int((int)x, (int)y);
     }
 }
+
+
 //存储场景物品数据
 [System.Serializable]
 public class SceneItem

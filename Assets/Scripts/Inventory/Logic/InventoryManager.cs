@@ -17,12 +17,28 @@ namespace SFarm.Inventory
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
 
+
+        private void OnEnable()
+        {
+            EventHandler.DropItemEvent += OnDropItemEvent;
+        }
+        private void OnDisable()
+        {
+            EventHandler.DropItemEvent -= OnDropItemEvent;
+        }
+
+        
+
         private void Start()
         {
             //更新背包UI
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
 
+        private void OnDropItemEvent(int ID, Vector3 pos, ItemType type)
+        {
+            ReMoveItem(ID, 1);
+        }
 
         /// <summary>
         /// 查找数据（通过ID返回找到物品全部信息）
@@ -144,6 +160,24 @@ namespace SFarm.Inventory
                 PlayerBag.itemList[toIndex] = currentItem;
                 PlayerBag.itemList[fromIndex]=new InventoryItem();
             }
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
+        private void ReMoveItem(int ID,int removeAmount)
+        {
+            var index = GetItemIndexInBag(ID);
+
+            if (PlayerBag.itemList[index].itemAmount > removeAmount)
+            {
+                var amount = PlayerBag.itemList[index].itemAmount - removeAmount;
+                var item = new InventoryItem { itemID = ID, itemAmount = amount };
+                PlayerBag.itemList[index] = item;
+            }
+            else if (PlayerBag.itemList[index].itemAmount == removeAmount)
+            {
+                var item = new InventoryItem();
+                PlayerBag.itemList[index] = item;
+            }
+
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
     }

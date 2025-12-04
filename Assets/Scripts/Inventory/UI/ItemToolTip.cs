@@ -5,6 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 物品属性提示
+/// </summary>
 public class ItemToolTip : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;

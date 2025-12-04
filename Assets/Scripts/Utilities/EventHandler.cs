@@ -69,4 +69,21 @@ public static class EventHandler
         MoveToPosition?.Invoke(targetPosition);
     }
 
+    public static event Action<Vector3, ItemDetails> MouseClickedEvent;
+    public static void CallMouseClickedEvent(Vector3 pos, ItemDetails itemDetails)
+    {
+        MouseClickedEvent?.Invoke(pos, itemDetails);
+    }
+
+    //ÈÓ¶«Î÷
+    public static event Action<int, Vector3, ItemType> DropItemEvent;
+    public static void CallDropItemEvent(int ID, Vector3 pos, ItemType itemType)
+    {
+        DropItemEvent?.Invoke(ID, pos, itemType);
+    }
+    public static event Action<Vector3, ItemDetails> ExecuteActionAfterAnimation;
+    public static void CallExecuteActionAfterAnimation(Vector3 pos, ItemDetails itemDetails)
+    {
+        ExecuteActionAfterAnimation?.Invoke(pos, itemDetails);
+    }
 }

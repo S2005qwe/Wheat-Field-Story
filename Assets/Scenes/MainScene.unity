@@ -1361,6 +1361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrfabs: {fileID: 4483265643586379445, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
+  bounceItemPrefab: {fileID: 8886041382546962831, guid: 2015642ac780dd14285f3f61d0d25b01, type: 3}
 --- !u!4 &1828443197
 Transform:
   m_ObjectHideFlags: 0

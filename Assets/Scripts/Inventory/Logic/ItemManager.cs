@@ -10,13 +10,17 @@ namespace SFarm.Inventory
     {
         public Item itemPrfabs;  //物品预制体
 
+        public Item bounceItemPrefab;
+
         private Transform itemParent; //用于物品放在父物体下
 
+        private Transform PlayerTransform => FindObjectOfType<Player>().transform;
         private Dictionary<string, List<SceneItem>> sceneItemDict = new Dictionary<string, List<SceneItem>>();
 
         private void OnEnable()
         {
             EventHandler.InstaniateItemInScene += OnInstaniateItemInScene;
+            EventHandler.DropItemEvent += OnDropItemEvent;
             EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
 
@@ -24,6 +28,7 @@ namespace SFarm.Inventory
         private void OnDisable()
         {
             EventHandler.InstaniateItemInScene -= OnInstaniateItemInScene;
+            EventHandler.DropItemEvent -= OnDropItemEvent;
             EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         }
@@ -52,7 +57,17 @@ namespace SFarm.Inventory
             var item = Instantiate(itemPrfabs, pos, Quaternion.identity, itemParent);
             item.itemID = ID;
         }
+        private void OnDropItemEvent(int ID,Vector3 mousepos, ItemType itemType)
+        {
+            //扔东西效果
+            if (itemType == ItemType.Seed) return;
 
+            Debug.Log("!");
+            var item = Instantiate(bounceItemPrefab, PlayerTransform.position, Quaternion.identity, itemParent);
+            item.itemID = ID;
+            var dir = (mousepos - PlayerTransform.position).normalized;
+            item.GetComponent<ItemBounce>().InitBounceItem(mousepos,dir);
+        }
 
         /// <summary>
         /// 获取场景中全部物品
