@@ -41,9 +41,10 @@ public class AnimatorOverride : MonoBehaviour
         //WORKFLOW:不同工具返回不同的动画在这里补全
         PartType currentType = itemDetails.itemType switch
         {
-            ItemType.Seed=>PartType.Carry,
-            ItemType.Commodity=>PartType.Carry,
-            _=>PartType.None,
+            ItemType.Seed => PartType.Carry,
+            ItemType.Commodity => PartType.Carry,
+            ItemType.HoeTool => PartType.Hoe,
+            _ => PartType.None,
         };
         if(isSelected == false)
         {
