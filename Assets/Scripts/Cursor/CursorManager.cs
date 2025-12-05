@@ -172,6 +172,19 @@ public class CursorManager : MonoBehaviour
                     else 
                         SetCursorInValid();
                     break;
+                case ItemType.HoeTool:
+                    if (currentTile.canDig)
+                    {
+                        Debug.Log("2");
+                        SetCursorValid();
+                    }  
+                    else 
+                        SetCursorInValid();
+                    break;
+                 case ItemType.WaterTool:
+                    //如果被挖且没有被浇水
+                    if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) SetCursorValid(); else SetCursorInValid();
+                    break;
             }
         }
         else

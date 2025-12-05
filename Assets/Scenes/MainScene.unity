@@ -153,6 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapDataList:
   - {fileID: 11400000, guid: 18038758dda29064da1d70c7bf714985, type: 2}
+  digTile: {fileID: 11400000, guid: 561bd504e41f99a43a221976cffd66a0, type: 2}
+  waterTile: {fileID: 11400000, guid: 2e2fdd9afdf6ca54692dac3f2a6c72c8, type: 2}
 --- !u!4 &239215353
 Transform:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 namespace SFarm.Map
 {
@@ -9,6 +10,12 @@ namespace SFarm.Map
     {
         [Header("地图信息")]
         public List<MapData_SO> mapDataList;
+
+        [Header("种地瓦片切换信息")]
+        public RuleTile digTile;
+        public RuleTile waterTile;
+        private Tilemap digTilemap;
+        private Tilemap waterTilemap;
 
         //场景名字+坐标和对应的瓦片信息
         private Dictionary<string,TileDetails> tileDetailsDict = new Dictionary<string,TileDetails>();
@@ -41,6 +48,8 @@ namespace SFarm.Map
         private void OnAfterSceneLoadedEvent()
         {
             currentGrid = FindObjectOfType<Grid>();
+            digTilemap=GameObject.FindWithTag("Dig").GetComponent<Tilemap>();
+            waterTilemap = GameObject.FindWithTag("Water").GetComponent<Tilemap>();
         }
 
         /// <summary>
@@ -129,9 +138,44 @@ namespace SFarm.Map
                     case ItemType.Commodity:        //商品
                         EventHandler.CallDropItemEvent(itemDetails.itemId, mouseWorldPos, itemDetails.itemType);
                         break;
+                    case ItemType.HoeTool:          //锄头
+                        SetDigGround(currentTile);
+                        currentTile.daysSinceDug = 0;
+                        currentTile.canDig = false;
+                        currentTile.canDropItem = false;
+                        //加音效
+ 
+                        break;
+                    case ItemType.WaterTool:
+                        SetWaterGround(currentTile);
+                        currentTile.daysSinceDug = 0;
+                        //加音效
+                        break;
                 }
             }
 
+        }
+
+
+        /// <summary>
+        /// 显示挖坑瓦片
+        /// </summary>
+        /// <param name="tile"></param>
+        private void SetDigGround(TileDetails tile)
+        {
+            Vector3Int pos = new Vector3Int(tile.gridX, tile.gridY, 0);
+            if (digTilemap != null)
+                digTilemap.SetTile(pos, digTile);
+        }
+        /// <summary>
+        /// 显示浇水瓦片
+        /// </summary>
+        /// <param name="tile"></param>
+        private void SetWaterGround(TileDetails tile)
+        {
+            Vector3Int pos = new Vector3Int(tile.gridX, tile.gridY, 0);
+            if (waterTilemap != null)
+                waterTilemap.SetTile(pos, waterTile);
         }
     }
 
