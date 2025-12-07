@@ -151,10 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6138b6458b11fbe4b90b2ed6427a3b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapDataList:
-  - {fileID: 11400000, guid: 18038758dda29064da1d70c7bf714985, type: 2}
   digTile: {fileID: 11400000, guid: 561bd504e41f99a43a221976cffd66a0, type: 2}
   waterTile: {fileID: 11400000, guid: 2e2fdd9afdf6ca54692dac3f2a6c72c8, type: 2}
+  mapDataList:
+  - {fileID: 11400000, guid: 18038758dda29064da1d70c7bf714985, type: 2}
+  - {fileID: 11400000, guid: 8b9d2b8700528844f8f23fc13adeb682, type: 2}
 --- !u!4 &239215353
 Transform:
   m_ObjectHideFlags: 0
@@ -755,6 +756,18 @@ MonoBehaviour:
   - partType: 2
     partName: 3
     overrideController: {fileID: 22100000, guid: 60d198f25c696a74fa9ded8a03166769, type: 2}
+  - partType: 4
+    partName: 2
+    overrideController: {fileID: 22100000, guid: e36e8978bc102bb4c8bee3458bd1715a, type: 2}
+  - partType: 4
+    partName: 0
+    overrideController: {fileID: 22100000, guid: da60ab2d3f9585b42921412f0b0aa961, type: 2}
+  - partType: 4
+    partName: 1
+    overrideController: {fileID: 22100000, guid: 6768667ad4691ad4cb5ca3747f5c1dde, type: 2}
+  - partType: 4
+    partName: 3
+    overrideController: {fileID: 22100000, guid: 329333245c7542542a652240b1e2abed, type: 2}
 --- !u!1 &822547210
 GameObject:
   m_ObjectHideFlags: 3

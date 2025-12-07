@@ -175,7 +175,6 @@ public class CursorManager : MonoBehaviour
                 case ItemType.HoeTool:
                     if (currentTile.canDig)
                     {
-                        Debug.Log("2");
                         SetCursorValid();
                     }  
                     else 

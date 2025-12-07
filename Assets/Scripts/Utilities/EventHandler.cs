@@ -86,4 +86,10 @@ public static class EventHandler
     {
         ExecuteActionAfterAnimation?.Invoke(pos, itemDetails);
     }
+
+    public static event Action<int, Season> GameDayEvent;
+    public static void CallGameDayEvent(int day,Season season)
+    {
+        GameDayEvent?.Invoke(day,season);
+    }
 }
