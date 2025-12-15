@@ -94,7 +94,7 @@ public static class EventHandler
     }
 
     public static event Action<int, TileDetails> PlantSeedEvent;
-    public static void CallPlantEvent(int ID, TileDetails tile)
+    public static void CallPlantSeedEvent(int ID, TileDetails tile)
     {
         PlantSeedEvent?.Invoke(ID, tile);
     }

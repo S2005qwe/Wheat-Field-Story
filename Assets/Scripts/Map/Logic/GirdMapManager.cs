@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 namespace SFarm.Map
 {
@@ -80,6 +81,11 @@ namespace SFarm.Map
                 {
                     tile.Value.daysSinceDug = -1;
                     tile.Value.canDig = true;
+                    tile.Value.growthDays = -1;
+                }
+                if (tile.Value.seedItemID != -1)
+                {
+                    tile.Value.growthDays++;
                 }
             }
             RefreshMap();
@@ -169,7 +175,8 @@ namespace SFarm.Map
                 switch (itemDetails.itemType)
                 {
                     case ItemType.Seed:
-                        EventHandler.CallPlantEvent(itemDetails.itemId,currentTile);
+                        EventHandler.CallPlantSeedEvent(itemDetails.itemId,currentTile);
+                        EventHandler.CallDropItemEvent(itemDetails.itemId, mouseWorldPos, itemDetails.itemType);
                         break;
                     //WORKFLOW:物品使用实际情况
                     case ItemType.Commodity:        //商品
@@ -233,8 +240,14 @@ namespace SFarm.Map
         {
             if(digTilemap!=null)
             digTilemap.ClearAllTiles();
+
             if(waterTilemap!=null)
             waterTilemap.ClearAllTiles();
+
+            foreach(var crop in FindObjectsOfType<Crop>())
+            {
+                Destroy(crop.gameObject);
+            }
             DisplayMap(SceneManager.GetActiveScene().name);
         }
         /// <summary>
@@ -254,6 +267,8 @@ namespace SFarm.Map
                     if(tileDetails.daysSinceWatered>-1)
                      SetWaterGround(tileDetails);
                     //TODO：种子
+                    if(tileDetails.seedItemID>-1)
+                      EventHandler.CallPlantSeedEvent(tileDetails.seedItemID,tileDetails);
                 }
             }
         }

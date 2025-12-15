@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cropDetailsList:
   - seedItemID: 1007
-    growthDay: 0100000002000000020000000300000003000000
+    growthDays: 0100000002000000020000000300000003000000
     growPrefabs:
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     growSprites:
     - {fileID: -2058122700, guid: bd1655396b777431e85369611fc36aed, type: 3}
     - {fileID: 1098745238, guid: bd1655396b777431e85369611fc36aed, type: 3}
@@ -42,13 +42,13 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectPos: {x: 0, y: 0, z: 0}
   - seedItemID: 1008
-    growthDay: 0100000002000000020000000300000003000000
+    growthDays: 0100000002000000030000000400000004000000
     growPrefabs:
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     growSprites:
     - {fileID: -605721469, guid: 87430ba1a26c4408191e4027950e7133, type: 3}
     - {fileID: -1805732352, guid: 87430ba1a26c4408191e4027950e7133, type: 3}
@@ -70,13 +70,13 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectPos: {x: 0, y: 0, z: 0}
   - seedItemID: 1009
-    growthDay: 0100000002000000020000000300000003000000
+    growthDays: 0100000002000000030000000400000004000000
     growPrefabs:
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
-    - {fileID: 439850490760165553, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     growSprites:
     - {fileID: -1489595994, guid: ba8cb7102384d418883ef909ed3befd5, type: 3}
     - {fileID: 718811943, guid: ba8cb7102384d418883ef909ed3befd5, type: 3}

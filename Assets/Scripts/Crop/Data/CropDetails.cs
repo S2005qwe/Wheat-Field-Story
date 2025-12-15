@@ -15,7 +15,7 @@ public class CropDetails
             int amount = 0;
             foreach (var days in growthDays)
             {
-
+                amount += days;
             }
             return amount;
         }
