@@ -109,6 +109,7 @@ namespace SFarm.Map
 
                 switch (tileProperty.gridType)
                 {
+              
                     case GridType.Diggable:
                         tileDetails.canDig = tileProperty.boolTypeValue;
                         break;
@@ -167,6 +168,9 @@ namespace SFarm.Map
             {
                 switch (itemDetails.itemType)
                 {
+                    case ItemType.Seed:
+                        EventHandler.CallPlantEvent(itemDetails.itemId,currentTile);
+                        break;
                     //WORKFLOW:物品使用实际情况
                     case ItemType.Commodity:        //商品
                         EventHandler.CallDropItemEvent(itemDetails.itemId, mouseWorldPos, itemDetails.itemType);

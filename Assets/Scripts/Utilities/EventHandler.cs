@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class EventHandler 
+public static class EventHandler
 {
     //更新背包UI
     public static event Action<InventoryLocation, List<InventoryItem>> UpdateInventoryUI;
@@ -15,37 +15,37 @@ public static class EventHandler
 
     //实例化物品在屏幕上
     public static event Action<int, Vector3> InstaniateItemInScene;
-    public static void CallInstantiateItemInScene(int ID , Vector3 pos)
+    public static void CallInstantiateItemInScene(int ID, Vector3 pos)
     {
         InstaniateItemInScene?.Invoke(ID, pos);
     }
 
     //选择物品
-    public static event Action<ItemDetails,bool> ItemSelectedEvent;
-    public static void CallItemSelectedEvent(ItemDetails itemDetails,bool isSelected)
+    public static event Action<ItemDetails, bool> ItemSelectedEvent;
+    public static void CallItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {
-        ItemSelectedEvent?.Invoke(itemDetails,isSelected);
+        ItemSelectedEvent?.Invoke(itemDetails, isSelected);
     }
 
     //游戏时间
     public static event Action<int, int> GameMinuteEvent;
-    public static void CallGameMinuteEvent(int minute,int hour)
+    public static void CallGameMinuteEvent(int minute, int hour)
     {
-        GameMinuteEvent?.Invoke(minute,hour);
+        GameMinuteEvent?.Invoke(minute, hour);
     }
 
     //游戏时间数据
-    public static event Action<int, int,int,int ,Season>GameDataEvent;
-    public static void CallGameDataEvent(int hour,int day,int month,int year,Season season)
+    public static event Action<int, int, int, int, Season> GameDataEvent;
+    public static void CallGameDataEvent(int hour, int day, int month, int year, Season season)
     {
-        GameDataEvent?.Invoke(hour,day,month,year,season);  
+        GameDataEvent?.Invoke(hour, day, month, year, season);
     }
 
     //传送场景
     public static event Action<string, Vector3> TransitionEvent;
-    public static void CallTransitionEvent(string sceneName,Vector3 pos)
+    public static void CallTransitionEvent(string sceneName, Vector3 pos)
     {
-        TransitionEvent?.Invoke(sceneName,pos);
+        TransitionEvent?.Invoke(sceneName, pos);
     }
 
     //卸载场景之前
@@ -88,8 +88,14 @@ public static class EventHandler
     }
 
     public static event Action<int, Season> GameDayEvent;
-    public static void CallGameDayEvent(int day,Season season)
+    public static void CallGameDayEvent(int day, Season season)
     {
-        GameDayEvent?.Invoke(day,season);
+        GameDayEvent?.Invoke(day, season);
+    }
+
+    public static event Action<int, TileDetails> PlantSeedEvent;
+    public static void CallPlantEvent(int ID, TileDetails tile)
+    {
+        PlantSeedEvent?.Invoke(ID, tile);
     }
 }
