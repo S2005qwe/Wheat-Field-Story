@@ -795,6 +795,12 @@ MonoBehaviour:
   - partType: 1
     partName: 2
     overrideController: {fileID: 22100000, guid: b773e6cc5ca6ce44c96fd982d153d15c, type: 2}
+  - partType: 4
+    partName: 2
+    overrideController: {fileID: 22100000, guid: e36e8978bc102bb4c8bee3458bd1715a, type: 2}
+  - partType: 6
+    partName: 2
+    overrideController: {fileID: 22100000, guid: 3d1fb8566045fd4428b6e0e8c1757046, type: 2}
   - partType: 0
     partName: 3
     overrideController: {fileID: 22100000, guid: 6dbf6c5d9aa4d0d49bc80cfb738d444b, type: 2}
@@ -802,17 +808,20 @@ MonoBehaviour:
     partName: 3
     overrideController: {fileID: 22100000, guid: 60d198f25c696a74fa9ded8a03166769, type: 2}
   - partType: 4
-    partName: 2
-    overrideController: {fileID: 22100000, guid: e36e8978bc102bb4c8bee3458bd1715a, type: 2}
+    partName: 3
+    overrideController: {fileID: 22100000, guid: 329333245c7542542a652240b1e2abed, type: 2}
   - partType: 4
     partName: 0
     overrideController: {fileID: 22100000, guid: da60ab2d3f9585b42921412f0b0aa961, type: 2}
+  - partType: 6
+    partName: 1
+    overrideController: {fileID: 22100000, guid: 8a218e1d880109649804f6aa6da86c58, type: 2}
   - partType: 4
     partName: 1
     overrideController: {fileID: 22100000, guid: 6768667ad4691ad4cb5ca3747f5c1dde, type: 2}
-  - partType: 4
-    partName: 3
-    overrideController: {fileID: 22100000, guid: 329333245c7542542a652240b1e2abed, type: 2}
+  - partType: 6
+    partName: 0
+    overrideController: {fileID: 22100000, guid: 69bee2446d771f448a53f13852f05cc3, type: 2}
 --- !u!1 &822547210
 GameObject:
   m_ObjectHideFlags: 3

@@ -32,6 +32,7 @@ namespace SFarm.Map
             EventHandler.ExecuteActionAfterAnimation += OnExecuteActionAfterAnimation;
             EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
             EventHandler.GameDayEvent += OnGameDayEvent;
+            EventHandler.RefreshCurrentMap += RefreshMap;
         }
 
        
@@ -40,6 +41,7 @@ namespace SFarm.Map
             EventHandler.ExecuteActionAfterAnimation -= OnExecuteActionAfterAnimation;
             EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
             EventHandler.GameDayEvent -= OnGameDayEvent;
+            EventHandler.RefreshCurrentMap -= RefreshMap;
         }
 
        
@@ -195,12 +197,29 @@ namespace SFarm.Map
                         currentTile.daysSinceWatered = 0;
                         //加音效
                         break;
+                    case ItemType.CollectTool:
+                        Crop currentCrop = GetCropObject(mouseWorldPos);
+                        //执行收割方法
+                        currentCrop.ProcessToolAction(itemDetails,currentTile);
+                        break;
                 }
                 UpdateTileDetails(currentTile);
             }
 
         }
 
+        private Crop GetCropObject(Vector3 mouseWorldPos)
+        {
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos);
+
+            Crop currentCrop = null;
+            for(int i=0;i<colliders.Length;i++)
+            {
+                if(colliders[i].GetComponent<Crop>())
+                 currentCrop = colliders[i].GetComponent<Crop>();
+            }
+            return currentCrop;
+        }
 
         /// <summary>
         /// 显示挖坑瓦片

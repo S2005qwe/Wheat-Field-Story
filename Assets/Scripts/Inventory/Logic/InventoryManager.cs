@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace SFarm.Inventory
 {
@@ -21,13 +22,21 @@ namespace SFarm.Inventory
         private void OnEnable()
         {
             EventHandler.DropItemEvent += OnDropItemEvent;
+            EventHandler.HarvestAtPlayerPosition += OnHarvestAtPlayerPosition;
         }
         private void OnDisable()
         {
             EventHandler.DropItemEvent -= OnDropItemEvent;
+            EventHandler.HarvestAtPlayerPosition -= OnHarvestAtPlayerPosition;
         }
 
-        
+        private void OnHarvestAtPlayerPosition(int ID)
+        {
+            //是否已经有该物品
+            var index = GetItemIndexInBag(ID);
+            AddItemAtIndex(ID, index, 1);
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
+        }
 
         private void Start()
         {

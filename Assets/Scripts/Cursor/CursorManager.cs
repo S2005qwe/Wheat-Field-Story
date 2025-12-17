@@ -1,3 +1,4 @@
+using MFarm.CropPlant;
 using SFarm.Map;
 using System.Collections;
 using System.Collections.Generic;
@@ -153,7 +154,7 @@ public class CursorManager : MonoBehaviour
         mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
 
        
-        TileDetails currentTile = GirdMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
+        
         var playerGridPos = currentGrid.WorldToCell(playerTransform.position);
 
         //判断在使用范围内
@@ -162,8 +163,10 @@ public class CursorManager : MonoBehaviour
             SetCursorInValid();
             return;
         }
+        TileDetails currentTile = GirdMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
         if (currentTile != null)
         {
+            CropDetails currentCrop = CropManager.Instance.GetCropDetails(currentTile.seedItemID);
             switch (currentItem.itemType)
             {
                 case ItemType.Seed:
@@ -186,6 +189,14 @@ public class CursorManager : MonoBehaviour
                  case ItemType.WaterTool:
                     //如果被挖且没有被浇水
                     if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) SetCursorValid(); else SetCursorInValid();
+                    break;
+                    case ItemType.CollectTool:
+                    if (currentCrop != null)
+                    {
+                        if (currentTile.growthDays >= currentCrop.TotalGrowthDays) SetCursorValid(); else SetCursorInValid();
+                    }
+                    else
+                        SetCursorInValid();
                     break;
             }
         }
