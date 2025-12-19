@@ -25,23 +25,70 @@ public class Crop : MonoBehaviour
         if (requireActionCount == -1) return;
 
         anim = GetComponentInChildren<Animator>();
-
+        Debug.Log("Animator组件：" + anim + "，当前物体：" + gameObject.name); // 看是否为null
         //点击计数器
         if (harvestActionCount < requireActionCount)
         {
+            
             harvestActionCount++;
+            //判断是否有动画 树木
+            if (anim != null && cropDetails.hasAnimation) 
+            {
+                Debug.Log("s");
+                if (PlayerTransform.position.x < transform.position.x)
+                {
+                   
+                    anim.SetTrigger("RotateRight");
+                }
+                    
+                else
+                    anim.SetTrigger("RotateLeft");
+            }
         
         }
 
         if (harvestActionCount >= requireActionCount)
         {
-            if (cropDetails.generateAtPlayerPosition )
+            if (cropDetails.generateAtPlayerPosition || !cropDetails.hasAnimation)
             {
                 //生成农作物
                 SpawnHarvestItems();
             }
-            
+            else if(cropDetails.hasAnimation) 
+            {
+                if (PlayerTransform.position.x < transform.position.x)
+                {
+                    anim.SetTrigger("FallingRight");
+                }
+                    
+                else
+                    anim.SetTrigger("FallingLeft");
+
+                StartCoroutine(HarvestAfterAnimation());
+            }
         }
+        
+    }
+    private IEnumerator HarvestAfterAnimation()
+    {
+        while(!anim.GetCurrentAnimatorStateInfo(0).IsName("END"))
+        {
+            yield return null;
+        }
+
+        SpawnHarvestItems();
+        //如果有转换的
+        if (cropDetails.transferItemID > 0)
+        {
+            CreateTransferCrop();
+        }
+    }
+    private void CreateTransferCrop()
+    {
+        tileDetails.seedItemID = cropDetails.transferItemID;
+        tileDetails.daysSinceLastHarvest = -1;
+        tileDetails.growthDays = 0;
+        EventHandler.CallRefreshCurrentMap();
     }
 
 
@@ -73,7 +120,13 @@ public class Crop : MonoBehaviour
                 }
                 else  //世界地图上生成物品
                 {
-                    
+                    //判断应该生成的物品方向
+                    var dirX = transform.position.x > PlayerTransform.position.x ? 1 : -1;
+                    //一定范围内的随机
+                    var spawnPos = new Vector3(transform.position.x + Random.Range(dirX, cropDetails.spawnRadius.x * dirX),
+                        transform.position.y + Random.Range(-cropDetails.spawnRadius.y, cropDetails.spawnRadius.y), 0);
+
+                    EventHandler.CallInstantiateItemInScene(cropDetails.producedItemID[i], spawnPos);
                 }
             }
         }

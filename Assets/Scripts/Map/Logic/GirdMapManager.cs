@@ -174,6 +174,7 @@ namespace SFarm.Map
             var currentTile = GetTileDetailsOnMousePosition(mouseGridPos);
             if (currentTile != null)
             {
+                Crop currentCrop = GetCropObject(mouseWorldPos);
                 switch (itemDetails.itemType)
                 {
                     case ItemType.Seed:
@@ -197,10 +198,13 @@ namespace SFarm.Map
                         currentTile.daysSinceWatered = 0;
                         //加音效
                         break;
+
                     case ItemType.CollectTool:
-                        Crop currentCrop = GetCropObject(mouseWorldPos);
                         //执行收割方法
                         currentCrop.ProcessToolAction(itemDetails,currentTile);
+                        break;
+                    case ItemType.ChopTool:
+                        currentCrop.ProcessToolAction(itemDetails, currentCrop.tileDetails);
                         break;
                 }
                 UpdateTileDetails(currentTile);
@@ -208,7 +212,7 @@ namespace SFarm.Map
 
         }
 
-        private Crop GetCropObject(Vector3 mouseWorldPos)
+        public Crop GetCropObject(Vector3 mouseWorldPos)
         {
             Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos);
 

@@ -8,7 +8,7 @@ namespace SFarm.Inventory
 {
     public class ItemManager : MonoBehaviour
     {
-        public Item itemPrfabs;  //物品预制体
+        public Item itemPrefab;  //物品预制体
 
         public Item bounceItemPrefab;
 
@@ -54,8 +54,9 @@ namespace SFarm.Inventory
         /// <param name="pos">世界坐标</param>
         private void OnInstaniateItemInScene(int ID, Vector3 pos)
         {
-            var item = Instantiate(itemPrfabs, pos, Quaternion.identity, itemParent);
+            var item = Instantiate(bounceItemPrefab, pos, Quaternion.identity, itemParent);
             item.itemID = ID;
+            item.GetComponent<ItemBounce>().InitBounceItem(pos, Vector3.up);
         }
         private void OnDropItemEvent(int ID,Vector3 mousepos, ItemType itemType)
         {
@@ -118,7 +119,7 @@ namespace SFarm.Inventory
                     }
                     foreach (var item in currentSceneItems)
                     {
-                        Item newItem = Instantiate(itemPrfabs, item.position.ToVector3(), Quaternion.identity, itemParent);
+                        Item newItem = Instantiate(itemPrefab, item.position.ToVector3(), Quaternion.identity, itemParent);
                         newItem.Init(item.itemID);
                     }
                 }

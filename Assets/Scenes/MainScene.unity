@@ -822,6 +822,9 @@ MonoBehaviour:
   - partType: 6
     partName: 0
     overrideController: {fileID: 22100000, guid: 69bee2446d771f448a53f13852f05cc3, type: 2}
+  - partType: 5
+    partName: 3
+    overrideController: {fileID: 22100000, guid: a0047aca0da770b458fa70a4eee16802, type: 2}
 --- !u!1 &822547210
 GameObject:
   m_ObjectHideFlags: 3
@@ -1542,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b6655c25bb7ed4184e0783dab961f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrfabs: {fileID: 4483265643586379445, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
+  itemPrefab: {fileID: 4483265643586379445, guid: 2f2a76caaeea793499621c7a4ae29284, type: 3}
   bounceItemPrefab: {fileID: 8886041382546962831, guid: 2015642ac780dd14285f3f61d0d25b01, type: 3}
 --- !u!4 &1828443197
 Transform:

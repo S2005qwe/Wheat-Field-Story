@@ -47,6 +47,7 @@ namespace SFarm.Inventory
                 coll.size = newSize;
                 coll.offset = new Vector2(0, spriteRenderer.sprite.bounds.center.y);
             }
+
         }
     }
 }

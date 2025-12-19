@@ -64,6 +64,8 @@ public class Player : MonoBehaviour
 
     private void OnMouseClickedEvent(Vector3 mouseWorldPos, ItemDetails itemDetails)
     {
+        if (useTool)
+            return;
         //TODO£ºÖ´ÐÐ¶¯»­
         if (itemDetails.itemType != ItemType.Seed && itemDetails.itemType != ItemType.Commodity && itemDetails.itemType != ItemType.Furniture)
         {
