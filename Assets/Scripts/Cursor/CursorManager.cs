@@ -199,6 +199,7 @@ public class CursorManager : MonoBehaviour
                     {
                         if (crop.CanHarvest && crop.cropDetails.CheckToolAvaildable(currentItem.itemId)) SetCursorValid(); else SetCursorInValid();
                     }
+                    else SetCursorInValid();
                     break;
                 case ItemType.CollectTool:
                     if (currentCrop != null)

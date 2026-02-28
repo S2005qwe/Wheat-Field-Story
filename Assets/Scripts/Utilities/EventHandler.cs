@@ -110,4 +110,9 @@ public static class EventHandler
     {
         RefreshCurrentMap?.Invoke();
     }
+    public static event Action<ParticaleEffectType, Vector3> ParticalEffectEvent;
+    public static void CallParticalEffectEvent(ParticaleEffectType effectType, Vector3 pos)
+    {
+        ParticalEffectEvent?.Invoke(effectType, pos);
+    }
 }

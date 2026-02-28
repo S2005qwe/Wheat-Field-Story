@@ -44,6 +44,12 @@ public class Crop : MonoBehaviour
                 else
                     anim.SetTrigger("RotateLeft");
             }
+            //≤•∑≈¡£◊”
+            Debug.Log(transform.position.x);
+            if (cropDetails.hasParticalEffect)
+            EventHandler.CallParticalEffectEvent(cropDetails.effectType, transform.position + cropDetails.effectPos);
+            Debug.Log(cropDetails.effectPos);
+            //≤•∑≈…˘“Ù
         
         }
 

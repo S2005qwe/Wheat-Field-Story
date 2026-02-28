@@ -60,7 +60,7 @@ public class CropDetails
     public bool hasParticalEffect;            //是否有粒子特效
 
     //TODO：特效，声音等
-    //public ParticaleEffectType effectType;  //特效类型
+    public ParticaleEffectType effectType;  //特效类型
 
     public Vector3 effectPos;                 //特效坐标
 

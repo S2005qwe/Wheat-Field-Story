@@ -201,7 +201,7 @@ namespace SFarm.Map
 
                     case ItemType.CollectTool:
                         //执行收割方法
-                        currentCrop.ProcessToolAction(itemDetails,currentTile);
+                        currentCrop?.ProcessToolAction(itemDetails,currentTile);
                         break;
                     case ItemType.ChopTool:
                         currentCrop.ProcessToolAction(itemDetails, currentCrop.tileDetails);
