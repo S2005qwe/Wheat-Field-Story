@@ -1,3 +1,5 @@
+using MFarm.CropPlant;
+using SFarm.CropPlant;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +48,12 @@ namespace SFarm.Inventory
                 Vector2 newSize = new Vector2(spriteRenderer.sprite.bounds.size.x,spriteRenderer.sprite.bounds.size.y);
                 coll.size = newSize;
                 coll.offset = new Vector2(0, spriteRenderer.sprite.bounds.center.y);
+            }
+            if (itemDetails.itemType == ItemType.ReapableScenery)
+            {
+                gameObject.AddComponent<ReapItem>();
+                gameObject.GetComponent<ReapItem>().InitCropData(itemDetails.itemId);
+                gameObject.AddComponent<ItemInteractive>();
             }
 
         }

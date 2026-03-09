@@ -186,7 +186,7 @@ MonoBehaviour:
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
-    - {fileID: 2340795479930762939, guid: 8d619c07100070d44866b0f76687ecd3, type: 3}
+    - {fileID: 6229714218627803045, guid: 118d173943248ed44b2900720108c3a0, type: 3}
     growSprites:
     - {fileID: 21300000, guid: 83539708444bc497b8d9f5bba223cc6f, type: 3}
     - {fileID: 21300000, guid: 309497be57b084f4da5b2c165ddceca7, type: 3}
@@ -229,3 +229,108 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+  - seedItemID: 1020
+    growthDays: 
+    growPrefabs:
+    - {fileID: 6711854097255004095, guid: 887e04dab0e796e41888878db4481c19, type: 3}
+    growSprites:
+    - {fileID: 21300000, guid: b40fde803efab463bbc950e4d29ee5ce, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestToolItemID: eb030000
+    requireActionCount: 03000000
+    transferItemID: 0
+    producedItemID: fe030000
+    producedMinAmount: 01000000
+    producedMaxAmount: 03000000
+    spawnRadius: {x: 0.5, y: 0.5}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 1
+    effectType: 3
+    effectPos: {x: 0, y: 0, z: 0}
+  - seedItemID: 1021
+    growthDays: 
+    growPrefabs:
+    - {fileID: 6711854097255004095, guid: 887e04dab0e796e41888878db4481c19, type: 3}
+    growSprites:
+    - {fileID: 21300000, guid: b40fde803efab463bbc950e4d29ee5ce, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestToolItemID: eb030000
+    requireActionCount: 03000000
+    transferItemID: 0
+    producedItemID: fe030000
+    producedMinAmount: 01000000
+    producedMaxAmount: 03000000
+    spawnRadius: {x: 0.5, y: 0.5}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 1
+    effectType: 3
+    effectPos: {x: 0, y: 0, z: 0}
+  - seedItemID: 1023
+    growthDays: 00000000
+    growPrefabs:
+    - {fileID: 7234017055632818337, guid: 6c655b3eafafc644aa3f293160291519, type: 3}
+    growSprites:
+    - {fileID: 21300000, guid: 9ae5a331348064d73aa91a952b9e1a41, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestToolItemID: ec030000
+    requireActionCount: 03000000
+    transferItemID: 0
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
+    spawnRadius: {x: 0.5, y: 0.5}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 1
+    effectType: 4
+    effectPos: {x: 0, y: 1, z: 0}
+  - seedItemID: 1024
+    growthDays: 00000000
+    growPrefabs:
+    - {fileID: 8808717371110499202, guid: 63e15f42b091e0d4dbd5b056e35d0a17, type: 3}
+    growSprites:
+    - {fileID: 21300000, guid: e6647f7a307d24b65957f4ef34c39562, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestToolItemID: ec030000
+    requireActionCount: 03000000
+    transferItemID: 0
+    producedItemID: 
+    producedMinAmount: 
+    producedMaxAmount: 
+    spawnRadius: {x: 0.5, y: 0.5}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 1
+    effectType: 4
+    effectPos: {x: 0, y: 1, z: 0}
+  - seedItemID: 1025
+    growthDays: 01000000
+    growPrefabs:
+    - {fileID: 5153451007007237756, guid: 3092b1dd6dc347e4ba2e13e02e22878d, type: 3}
+    growSprites:
+    - {fileID: 21300000, guid: 0c055f09a64a74805ad18c1f0b134fec, type: 3}
+    seasons: 00000000010000000200000003000000
+    harvestToolItemID: ec030000
+    requireActionCount: 03000000
+    transferItemID: 0
+    producedItemID: 02040000
+    producedMinAmount: 00000000
+    producedMaxAmount: 03000000
+    spawnRadius: {x: 0.5, y: 0.5}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 0
+    hasAnimation: 0
+    hasParticalEffect: 1
+    effectType: 4
+    effectPos: {x: 0, y: 1, z: 0}

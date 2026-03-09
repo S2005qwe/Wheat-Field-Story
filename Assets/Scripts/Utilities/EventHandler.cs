@@ -115,4 +115,9 @@ public static class EventHandler
     {
         ParticalEffectEvent?.Invoke(effectType, pos);
     }
+    public static event Action GenerateCropEvent;
+    public static void CallGenerateCropEvent()
+    {
+        GenerateCropEvent?.Invoke();
+    }
 }

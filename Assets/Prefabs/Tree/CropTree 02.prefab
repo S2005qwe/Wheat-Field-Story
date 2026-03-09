@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9199613295392554645}
   - component: {fileID: 7130072089827607622}
   - component: {fileID: 6498407421282227992}
+  - component: {fileID: 404074886869811816}
   m_Layer: 0
   m_Name: Tree01_Top
   m_TagString: Untagged
@@ -97,6 +98,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a36d89108cc03468bd6e2a7f069b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &404074886869811816
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112524713570592945}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5f87539d516d0c4db2b8816aea63679, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6229714218627803045
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,6 +131,7 @@ GameObject:
   - component: {fileID: 8943408811943289159}
   - component: {fileID: 2301374507817590516}
   - component: {fileID: 7487098073556984293}
+  - component: {fileID: 1496754955943203956}
   m_Layer: 0
   m_Name: CropTree 02
   m_TagString: Untagged
@@ -220,6 +243,7 @@ MonoBehaviour:
     generateAtPlayerPosition: 0
     hasAnimation: 0
     hasParticalEffect: 0
+    effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
   tileDetails:
     gridX: 0
@@ -233,6 +257,20 @@ MonoBehaviour:
     seedItemID: -1
     growthDays: -1
     daysSinceLastHarvest: -1
+--- !u!114 &1496754955943203956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6229714218627803045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c99fc5663a75af4ebba73ef773d4515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedItemID: 1018
+  growthDays: 5
 --- !u!1 &7319883669748085674
 GameObject:
   m_ObjectHideFlags: 0

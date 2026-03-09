@@ -1,4 +1,5 @@
 using MFarm.CropPlant;
+using SFarm.CropPlant;
 using SFarm.Map;
 using System.Collections;
 using System.Collections.Generic;
@@ -193,7 +194,7 @@ public class CursorManager : MonoBehaviour
                     //如果被挖且没有被浇水
                     if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) SetCursorValid(); else SetCursorInValid();
                     break;
-
+                case ItemType.BreakTool:
                 case ItemType.ChopTool:
                     if(crop!=null)
                     {
@@ -209,7 +210,9 @@ public class CursorManager : MonoBehaviour
                     else
                         SetCursorInValid();
                     break;
-                
+                case ItemType.ReapTool:
+                    if (GirdMapManager.Instance.HaveReapableItemsInRadius(mouseWorldPos, currentItem)) SetCursorValid(); else SetCursorInValid();
+                    break;
             }
         }
         else

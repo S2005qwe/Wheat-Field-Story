@@ -26,4 +26,6 @@ public class Settings
 
     public const float fadeDuration = 0.5f;
 
+    public const int reapAmount = 2; //镰刀一次能收割的数量
+
 }

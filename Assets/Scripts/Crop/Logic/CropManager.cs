@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MFarm.CropPlant
+namespace SFarm.CropPlant
 {
     public class CropManager : Singleton<CropManager>
     {
