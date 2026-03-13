@@ -1,6 +1,6 @@
-using SFarm.CropPlant;
 using System.Collections;
 using System.Collections.Generic;
+using SFarm.CropPlant;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -10,8 +10,6 @@ namespace SFarm.Map
 {
     public class GirdMapManager : Singleton<GirdMapManager>
     {
-
-
         [Header("种地瓦片切换信息")]
         public RuleTile digTile;
         public RuleTile waterTile;
@@ -24,7 +22,8 @@ namespace SFarm.Map
         private Season currentSeason;
 
         //场景名字+坐标和对应的瓦片信息
-        private Dictionary<string, TileDetails> tileDetailsDict = new Dictionary<string, TileDetails>();
+        private Dictionary<string, TileDetails> tileDetailsDict =
+            new Dictionary<string, TileDetails>();
         private Dictionary<string, bool> firstLoadDict = new Dictionary<string, bool>();
 
         private List<ReapItem> itemsInRadius;
@@ -38,7 +37,6 @@ namespace SFarm.Map
             EventHandler.RefreshCurrentMap += RefreshMap;
         }
 
-
         private void OnDisable()
         {
             EventHandler.ExecuteActionAfterAnimation -= OnExecuteActionAfterAnimation;
@@ -46,8 +44,6 @@ namespace SFarm.Map
             EventHandler.GameDayEvent -= OnGameDayEvent;
             EventHandler.RefreshCurrentMap -= RefreshMap;
         }
-
-
 
         private void Start()
         {
@@ -114,7 +110,7 @@ namespace SFarm.Map
                 TileDetails tileDetails = new TileDetails
                 {
                     gridX = tileProperty.tileCoordinate.x,
-                    gridY = tileProperty.tileCoordinate.y
+                    gridY = tileProperty.tileCoordinate.y,
                 };
 
                 //字典的Key
@@ -127,7 +123,6 @@ namespace SFarm.Map
 
                 switch (tileProperty.gridType)
                 {
-
                     case GridType.Diggable:
                         tileDetails.canDig = tileProperty.boolTypeValue;
                         break;
@@ -153,13 +148,12 @@ namespace SFarm.Map
             }
         }
 
-
         /// <summary>
         /// 根据Key返回瓦片信息
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        private TileDetails GetTileDetails(string key)
+        public TileDetails GetTileDetails(string key)
         {
             if (tileDetailsDict.ContainsKey(key))
             {
@@ -175,9 +169,11 @@ namespace SFarm.Map
         /// <returns></returns>
         public TileDetails GetTileDetailsOnMousePosition(Vector3Int mouseGridPos)
         {
-            string key = mouseGridPos.x + "x" + mouseGridPos.y + "y" + SceneManager.GetActiveScene().name;
+            string key =
+                mouseGridPos.x + "x" + mouseGridPos.y + "y" + SceneManager.GetActiveScene().name;
             return GetTileDetails(key);
         }
+
         private void OnExecuteActionAfterAnimation(Vector3 mouseWorldPos, ItemDetails itemDetails)
         {
             var mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
@@ -189,13 +185,21 @@ namespace SFarm.Map
                 {
                     case ItemType.Seed:
                         EventHandler.CallPlantSeedEvent(itemDetails.itemId, currentTile);
-                        EventHandler.CallDropItemEvent(itemDetails.itemId, mouseWorldPos, itemDetails.itemType);
+                        EventHandler.CallDropItemEvent(
+                            itemDetails.itemId,
+                            mouseWorldPos,
+                            itemDetails.itemType
+                        );
                         break;
                     //WORKFLOW:物品使用实际情况
-                    case ItemType.Commodity:        //商品
-                        EventHandler.CallDropItemEvent(itemDetails.itemId, mouseWorldPos, itemDetails.itemType);
+                    case ItemType.Commodity: //商品
+                        EventHandler.CallDropItemEvent(
+                            itemDetails.itemId,
+                            mouseWorldPos,
+                            itemDetails.itemType
+                        );
                         break;
-                    case ItemType.HoeTool:          //锄头
+                    case ItemType.HoeTool: //锄头
                         SetDigGround(currentTile);
                         currentTile.daysSinceDug = 0;
                         currentTile.canDig = false;
@@ -218,25 +222,25 @@ namespace SFarm.Map
                         currentCrop.ProcessToolAction(itemDetails, currentCrop.tileDetails);
                         break;
 
-                    case ItemType.ReapTool:     //镰刀
+                    case ItemType.ReapTool: //镰刀
                         var reapCount = 0;
                         for (int i = 0; i < itemsInRadius.Count; i++)
                         {
-                            EventHandler.CallParticalEffectEvent(ParticaleEffectType.ReapableScenery, itemsInRadius[i].transform.position + Vector3.up);
+                            EventHandler.CallParticalEffectEvent(
+                                ParticaleEffectType.ReapableScenery,
+                                itemsInRadius[i].transform.position + Vector3.up
+                            );
                             itemsInRadius[i].SpawnHarvestItems();
                             Destroy(itemsInRadius[i].gameObject);
-                             reapCount++;
+                            reapCount++;
                             if (reapCount >= Settings.reapAmount)
                                 break;
                         }
                         //EventHandler.CallPlaySoundEvent(SoundName.Reap);
                         break;
-
-
                 }
                 UpdateTileDetails(currentTile);
             }
-
         }
 
         public Crop GetCropObject(Vector3 mouseWorldPos)
@@ -275,6 +279,7 @@ namespace SFarm.Map
             }
             return itemsInRadius.Count > 0;
         }
+
         /// <summary>
         /// 显示挖坑瓦片
         /// </summary>
@@ -285,6 +290,7 @@ namespace SFarm.Map
             if (digTilemap != null)
                 digTilemap.SetTile(pos, digTile);
         }
+
         /// <summary>
         /// 显示浇水瓦片
         /// </summary>
@@ -302,7 +308,12 @@ namespace SFarm.Map
         /// <param name="tileDetails"></param>
         public void UpdateTileDetails(TileDetails tileDetails)
         {
-            string key = tileDetails.gridX + "x" + tileDetails.gridY + "y" + SceneManager.GetActiveScene().name;
+            string key =
+                tileDetails.gridX
+                + "x"
+                + tileDetails.gridY
+                + "y"
+                + SceneManager.GetActiveScene().name;
             if (tileDetailsDict.ContainsKey(key))
             {
                 tileDetailsDict[key] = tileDetails;
@@ -327,6 +338,7 @@ namespace SFarm.Map
             }
             DisplayMap(SceneManager.GetActiveScene().name);
         }
+
         /// <summary>
         /// 显示地图瓦片
         /// </summary>
@@ -349,7 +361,37 @@ namespace SFarm.Map
                 }
             }
         }
+
+        /// <summary>
+        /// 根据场景名字构建网络范围，输出范围和原点
+        /// </summary>
+        /// <param name="sceneName">场景名字</param>
+        /// <param name="gridDimensions">网络范围</param>
+        /// <param name="gridOrigin">网格原点</param>
+        /// <returns>是否有当前场景的信息</returns>
+        public bool GetGridDimensions(
+            string sceneName,
+            out Vector2Int gridDimensions,
+            out Vector2Int gridOrigin
+        )
+        {
+            gridDimensions = Vector2Int.zero;
+            gridOrigin = Vector2Int.zero;
+
+            foreach (var mapData in mapDataList)
+            {
+                if (mapData.sceneName == sceneName)
+                {
+                    gridDimensions.x = mapData.gridWidth;
+                    gridDimensions.y = mapData.gridHeight;
+
+                    gridOrigin.x = mapData.originX;
+                    gridOrigin.y = mapData.originY;
+
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-
 }
-

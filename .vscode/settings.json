@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Wheat Field Story.sln"
+    "dotnet.defaultSolution": "Wheat Field Story.sln",
+    "dotnet.preferCSharpExtension": true
 }
