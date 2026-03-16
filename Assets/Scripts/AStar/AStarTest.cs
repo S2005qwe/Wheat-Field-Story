@@ -9,7 +9,7 @@ namespace SFarm.AStar
     public class AStarTest : MonoBehaviour
     {
         private AStar aStar;
-        [Header("ÓÃÓÚ²âÊÔ")]
+        [Header("Ã“ÃƒÃ“ÃšÂ²Ã¢ÃŠÃ”")]
         public Vector2Int startPos;
 
         public Vector2Int finishPos;
@@ -26,16 +26,16 @@ namespace SFarm.AStar
         public Stack<MovementStep> npcMovementStepStack;
 
 
-        //[Header("²âÊÔÒÆ¶¯NPC")]
-        //public NPCMovement npcMovement;
+        [Header("Â²Ã¢ÃŠÃ”Ã’Ã†Â¶Â¯NPC")]
+        public NPCMovement npcMovement;
 
-        // public bool moveNPC;
+        public bool moveNPC;
 
-        // [SceneName] public string targetScene;
+        [SceneName] public string targetScene;
 
-        // public Vector2Int targetPos;
+        public Vector2Int targetPos;
 
-        // public AnimationClip stopClip;
+        public AnimationClip stopClip;
 
 
 
@@ -48,12 +48,12 @@ namespace SFarm.AStar
         {
             ShowPathOnGridMap();
 
-            // if (moveNPC)
-            // {
-            //     //moveNPC = false;
-            //     //var schedule = new ScheduleDetails(0, 0, 0, 0, Season.??, targetScene, targetPos, stopClip, true);
-            //     //npcMovement.BuildPath(schedule);
-            // }
+            if (moveNPC)
+            {
+                moveNPC = false;
+                var schedule = new ScheduleDetails(0, 0, 0, 0, Season.æ˜¥å¤©, targetScene, targetPos, stopClip, true);
+                npcMovement.BuildPath(schedule);
+            }
         }
 
         private void ShowPathOnGridMap()

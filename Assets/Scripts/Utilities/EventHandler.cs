@@ -28,10 +28,10 @@ public static class EventHandler
     }
 
     //游戏时间
-    public static event Action<int, int> GameMinuteEvent;
-    public static void CallGameMinuteEvent(int minute, int hour)
+    public static event Action<int, int,int ,Season> GameMinuteEvent;
+    public static void CallGameMinuteEvent(int minute, int hour,int day,Season season)
     {
-        GameMinuteEvent?.Invoke(minute, hour);
+        GameMinuteEvent?.Invoke(minute, hour,day,season);
     }
 
     //游戏时间数据
@@ -120,4 +120,11 @@ public static class EventHandler
     {
         GenerateCropEvent?.Invoke();
     }
+    public static event Action<int> StartNewGameEvent;
+    public static void CallStartNewGameEvent(int index)
+    {
+        StartNewGameEvent?.Invoke(index);
+    }
+
+
 }

@@ -1,60 +1,111 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class TimeManager : MonoBehaviour
+
+public class TimeManager : Singleton<TimeManager>
 {
     private int gameSecond, gameMinute, gameHour, gameDay, gameMonth, gameYear;
 
-    private Season gameSeason = Season.夏天;
+    private Season gameSeason = Season.春天;
 
     private int monthInSeason = 3;
 
     public bool gameClockPause;
 
-    private float tikTime;
+    private float tikTime;//计时器
 
-    private void Awake()
+    //灯光时间差
+    private float timeDifference;
+
+    public TimeSpan GameTime => new TimeSpan(gameHour, gameMinute, gameSecond);
+
+
+
+
+    private void OnEnable()
     {
-        NewGameTime();
+        EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
+        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadEvent;
+
     }
+
+    private void OnDisable()
+    {
+        EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
+        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadEvent;
+        
+    }
+
 
     private void Start()
     {
+       
 
-        EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
-        EventHandler.CallGameMinuteEvent(gameMinute, gameHour);
+        gameClockPause = true;
+        //EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+        //EventHandler.CallGameMinuteEvent(gameMinute, gameHour, gameDay, gameSeason);
+        ////切换灯光
+        //EventHandler.CallLightShiftChangeEvent(gameSeason, GetCurrentLightShift(), timeDifference);
     }
     private void Update()
     {
         if (!gameClockPause)
         {
             tikTime += Time.deltaTime;
+
             if (tikTime >= Settings.secondThreshold)
             {
                 tikTime -= Settings.secondThreshold;
-                UpdateGameTime();
+                UpdateGameTime();//更新时间
             }
         }
-        if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKey(KeyCode.T))//快速过1分钟
         {
-            for (int i = 0; i < 60;i++)
+            for (int i = 0; i < 60; i++)
             {
                 UpdateGameTime();
             }
         }
-        if (Input.GetKeyDown(KeyCode.G)) 
+
+        if (Input.GetKeyDown(KeyCode.G))//快速过1天
         {
             gameDay++;
-            EventHandler.CallGameDayEvent(gameDay,gameSeason);
+            EventHandler.CallGameDayEvent(gameDay, gameSeason);
             EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
         }
     }
 
-    //初始化
-    private void NewGameTime()
+    private void OnEndGameEvent()
     {
-        gameSeason = 0;
+        gameClockPause = true;
+    }
+
+    
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        NewGameTime();
+        gameClockPause = false;
+    }
+    private void OnAfterSceneLoadEvent()
+    {
+        gameClockPause = false;
+        EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
+        EventHandler.CallGameMinuteEvent(gameMinute, gameHour, gameDay, gameSeason);
+       
+    }
+
+    private void OnBeforeSceneUnloadEvent()
+    {
+        gameClockPause = true;
+    }
+
+    private void NewGameTime()//初始化
+    {
+        gameSecond = 0;
         gameMinute = 0;
         gameHour = 7;
         gameDay = 1;
@@ -63,7 +114,6 @@ public class TimeManager : MonoBehaviour
         gameSeason = Season.春天;
     }
 
-    //更新时间
     public void UpdateGameTime()//更新时间
     {
         gameSecond++;
@@ -113,17 +163,20 @@ public class TimeManager : MonoBehaviour
                                 gameYear = 2022;
                             }
                         }
-                        //用于刷新地图和农作物生长
-                        EventHandler.CallGameDayEvent(gameDay, gameSeason);
                     }
+                    //用来刷新地图和农作物生长
+                    EventHandler.CallGameDayEvent(gameDay, gameSeason);
 
-                    
                 }
-                EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth,gameYear,gameSeason);
+                EventHandler.CallGameDataEvent(gameHour, gameDay, gameMonth, gameYear, gameSeason);
             }
-            EventHandler.CallGameMinuteEvent(gameMinute, gameHour);
+            EventHandler.CallGameMinuteEvent(gameMinute, gameHour, gameDay, gameSeason);
+            
         }
 
         //Debug.Log("Second:" + gameSecond + "Minute:" + gameMinute);
     }
+
+
+   
 }

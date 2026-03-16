@@ -27,5 +27,17 @@ public class Settings
     public const float fadeDuration = 0.5f;
 
     public const int reapAmount = 2; //镰刀一次能收割的数量
+    
+    //NPC网格移动
+    public const float gridCellSize = 1;
+
+    public const float gridCellDiagonalSize = 1.41f;
+
+    public const float pixelSize = 0.05f;//20*20  占 1 unit
+
+    public const float animationBreakTime = 5f;//动画间隔时间
+
+    public const int maxGridSize = 9999;
+
 
 }
