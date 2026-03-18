@@ -43,3 +43,7 @@ public enum ParticaleEffectType
 {
     None,LeavesFalling01,LeavesFalling02,Rock,ReapableScenery
 }
+public enum GameState
+{
+    GamePlay,Pause
+}

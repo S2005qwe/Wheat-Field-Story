@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
         EventHandler.MoveToPosition += OnMoveToPosition;
         EventHandler.MouseClickedEvent += OnMouseClickedEvent;
+        EventHandler.UpdateGameStateEvent += OnUpdateGameStateEvent;
     }
     private void OnDisable()
     {
@@ -60,8 +61,23 @@ public class Player : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.MoveToPosition -= OnMoveToPosition;
         EventHandler.MouseClickedEvent -= OnMouseClickedEvent;
+        EventHandler.UpdateGameStateEvent -= OnUpdateGameStateEvent;
     }
 
+    private void OnUpdateGameStateEvent(GameState gamestate)
+    {
+        switch(gamestate)
+        {
+            case GameState.GamePlay:
+                inputDisable = false;
+                break;
+            case GameState.Pause:
+                inputDisable = true;
+                break;
+        }
+    }
+
+    
     private void OnMouseClickedEvent(Vector3 mouseWorldPos, ItemDetails itemDetails)
     {
         if (useTool)

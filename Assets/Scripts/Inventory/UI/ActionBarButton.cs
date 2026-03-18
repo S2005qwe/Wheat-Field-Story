@@ -11,16 +11,31 @@ namespace SFarm.Inventory
 
         private SlotUI slotUI;
 
+        private bool canUse ;
+
         private void Awake()
         {
             slotUI = GetComponent<SlotUI>();
         }
 
-        
+        void OnEnable()
+        {
+            EventHandler.UpdateGameStateEvent+=OnUpdateGameStateEvent;
+            
+        }
+        void OnDisable()
+        {
+            EventHandler.UpdateGameStateEvent-=OnUpdateGameStateEvent;
+        }
+
+        private void OnUpdateGameStateEvent(GameState gameState)
+        {
+            canUse = gameState == GameState.GamePlay;
+        }
 
         private void Update()
         {
-            if (Input.GetKeyDown(key))
+            if (Input.GetKeyDown(key)&&canUse)
             {
                 if (slotUI.itemDetails != null)
                 {

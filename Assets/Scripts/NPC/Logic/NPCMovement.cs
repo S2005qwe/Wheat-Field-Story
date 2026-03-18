@@ -16,7 +16,7 @@ public class NPCMovement : MonoBehaviour
 
     private ScheduleDetails currentSchedule;
 
-    //临时存储信息
+    //????洢???
     [SerializeField]
     private string currentScene;
 
@@ -33,7 +33,7 @@ public class NPCMovement : MonoBehaviour
 
     public string StartScene { set => currentScene = value; }
 
-    [Header("移动属性")]
+    [Header("???????")]
     public float normalSpeed = 2f;
 
     private float minSpeed = 1;
@@ -71,7 +71,7 @@ public class NPCMovement : MonoBehaviour
 
     public Season currentSeason;
 
-    //动画计时器
+    //?????????
     private float animationBreakTime;
 
     private bool canPlayStopAnimation;
@@ -125,7 +125,7 @@ public class NPCMovement : MonoBehaviour
         if (sceneLoaded)
             SwitchAnimation();
 
-        //计时器
+        //?????
         animationBreakTime -= Time.deltaTime;
         canPlayStopAnimation = animationBreakTime <= 0;
     }
@@ -152,7 +152,6 @@ public class NPCMovement : MonoBehaviour
     {
         int time = (hour * 100) + minute;
         currentSeason = season;
-
         ScheduleDetails matchSchedule = null;
         foreach (var schedule in scheduleSet)
         {
@@ -163,6 +162,7 @@ public class NPCMovement : MonoBehaviour
                 if (schedule.season != season)
                     continue;
                 matchSchedule = schedule;
+                
             }
             else if (schedule.Time > time)
             {
@@ -170,7 +170,11 @@ public class NPCMovement : MonoBehaviour
             }
         }
         if (matchSchedule != null)
+        {
+
             BuildPath(matchSchedule);
+        }
+       
     }
     private void OnBeforeSceneUnloadEvent()
     {
@@ -210,7 +214,7 @@ public class NPCMovement : MonoBehaviour
     {
         targetScene = currentScene;
 
-        //保持在当前坐标的网格中心点
+        //??????????????????????
         currentGridPosition = grid.WorldToCell(transform.position);
         transform.position = new Vector3(currentGridPosition.x + Settings.gridCellSize / 2f, currentGridPosition.y + Settings.gridCellSize / 2f, 0);
 
@@ -218,29 +222,29 @@ public class NPCMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// 主要移动方法
+    /// ??????????
     /// </summary>
     private void Movement()
     {
         if (!npcMove)
         {
   
-            if (movementSteps.Count > 0)
+             if (movementSteps.Count > 0)
             {
                 MovementStep step = movementSteps.Pop();
-
+                Debug.Log($"[Movement] Pop step: grid={step.gridCoordinate}, time={step.hour}:{step.minute}:{step.second}, steps remaining={movementSteps.Count}");
                 currentScene = step.sceneName;
-
                 CheckVisiable();
-
                 nextGridPosition = (Vector3Int)step.gridCoordinate;
+                targetGridPosition = nextGridPosition;
                 TimeSpan stepTime = new TimeSpan(step.hour, step.minute, step.second);
-
+                Debug.Log($"[Movement] stepTime={stepTime}, GameTime={GameTime}, stepTime>GameTime={stepTime > GameTime}");
                 MoveToGridPosition(nextGridPosition, stepTime);
                  
             }
             else if (!isMoving && canPlayStopAnimation)
             {
+                Debug.Log($"[Movement] No steps, setting stop animation");
                 StartCoroutine(SetStopAnimation());
             }
         }
@@ -256,14 +260,14 @@ public class NPCMovement : MonoBehaviour
         npcMove = true;
         nextWorldPosition = GetWorldPosition(gridPos);
 
-        //还有时间来移动
+        //????????????
         if (stepTime > GameTime)
         {
-            //用来移动的时间差，以秒为单位
+            //????????????????????λ
             float timeToMove = (float)(stepTime.TotalSeconds - GameTime.TotalSeconds);
-            //实际移动距离
+            //??????????
             float distance = Vector3.Distance(transform.position, nextWorldPosition);
-            //实际移动速度
+            //?????????
             float speed = Mathf.Max(minSpeed, (distance / timeToMove / Settings.secondThreshold));
 
             if (speed <= maxSpeed)
@@ -278,7 +282,7 @@ public class NPCMovement : MonoBehaviour
                 }
             }
         }
-        //如果时间已经到了就瞬移
+        //?????????????????
         rb.position = nextWorldPosition;
         currentGridPosition = gridPos;
         nextGridPosition = currentGridPosition;
@@ -288,14 +292,12 @@ public class NPCMovement : MonoBehaviour
 
 
     /// <summary>
-    /// 根据Schedule构建路径
+    /// ????Schedule????·??
     /// </summary>
     /// <param name="schedule"></param>
     public void BuildPath(ScheduleDetails schedule)
     {
-         Debug.Log($"=== BuildPath called for {gameObject.name} ===");
-    Debug.Log($"Schedule: targetScene={schedule.targetScene}, targetPos={schedule.targetGridPosition}");
-    Debug.Log($"Current: currentScene={currentScene}, currentPos={currentGridPosition}");
+        
         movementSteps.Clear();
         currentSchedule = schedule;
         targetScene = schedule.targetScene;
@@ -340,11 +342,16 @@ public class NPCMovement : MonoBehaviour
                 }
             }
         }
-
+         Debug.Log($"[BuildPath] movementSteps count: {movementSteps.Count}");
         if (movementSteps.Count > 1)
         {
-            //更新每一步对应的时间戳
+            //?????????????????
             UpdateTimeOnPath();
+            // ??????в???
+            foreach(var step in movementSteps)
+            {
+                Debug.Log($"[BuildPath] Step: {step.gridCoordinate} at {step.hour}:{step.minute}:{step.second}");
+            }
         }
     }
 
@@ -363,22 +370,22 @@ public class NPCMovement : MonoBehaviour
             step.minute = currentGameTime.Minutes;
             step.second = currentGameTime.Seconds;
 
-            TimeSpan gridMovementStepTime;  //走过每一个格子所需要的时间长度
+            TimeSpan gridMovementStepTime;  //???????????????????????
 
             if (MoveInDiagonal(step, previousStep))
                 gridMovementStepTime = new TimeSpan(0, 0, (int)(Settings.gridCellDiagonalSize / normalSpeed / Settings.secondThreshold));
             else
                 gridMovementStepTime = new TimeSpan(0, 0, (int)(Settings.gridCellSize / normalSpeed / Settings.secondThreshold));
 
-            //累计获得下一步的时间戳
+            //????????????????
             currentGameTime = currentGameTime.Add(gridMovementStepTime);
-            //循环下一步
+            //????????
             previousStep = step;
         }
     }
 
     /// <summary>
-    /// 判断是否走斜方向
+    /// ?ж??????б????
     /// </summary>
     /// <param name="currentStep"></param>
     /// <param name="previousStep"></param>
@@ -389,7 +396,7 @@ public class NPCMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// 网格坐标返回世界坐标中心点
+    /// ???????????????????????
     /// </summary>
     /// <param name="gridPos"></param>
     /// <returns></returns>
@@ -418,7 +425,7 @@ public class NPCMovement : MonoBehaviour
 
     private IEnumerator SetStopAnimation()
     {
-        //强制面向镜头
+        //????????
         anim.SetFloat("DirX", 0);
         anim.SetFloat("DirY", -1);
 
@@ -437,19 +444,19 @@ public class NPCMovement : MonoBehaviour
         }
     }
 
-    #region 设置NPC显示情况
+    #region ????NPC??????
     private void SetActiveInScene()
     {
         spriteRenderer.enabled = true;
         coll.enabled = true;
-        //影子关闭
+        //?????
         transform.GetChild(0).gameObject.SetActive(true);
     }
     private void SetInactiveInScene()
     {
         spriteRenderer.enabled = false;
         coll.enabled = false;
-        //影子关闭
+        //?????
         transform.GetChild(0).gameObject.SetActive(false);
     }
 

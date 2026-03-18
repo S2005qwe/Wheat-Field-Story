@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SFarm.Dialogue;
 using UnityEngine;
 
 public static class EventHandler
@@ -126,5 +127,33 @@ public static class EventHandler
         StartNewGameEvent?.Invoke(index);
     }
 
+    public static event Action<DialoguePiece> ShowDialogueEvent;
+    public static void CallShowDialogueEvent(DialoguePiece dialoguePiece)
+    {
+        ShowDialogueEvent?.Invoke(dialoguePiece);   
+    }
 
+    //ÉÌµê¿ªÆô
+    public static event Action<SlotType, InventoryBag_SO> BaseBagOpenEvent;
+    public static void CallBaseBagOpenEvent(SlotType slotType, InventoryBag_SO bag_SO)
+    {
+        BaseBagOpenEvent?.Invoke(slotType, bag_SO);
+    }
+    public static event Action<SlotType, InventoryBag_SO> BaseBagCloseEvent;
+    public static void CallBaseBagCloseEvent(SlotType slotType, InventoryBag_SO bag_SO)
+    {
+        BaseBagCloseEvent?.Invoke(slotType, bag_SO);
+    }
+
+      public static event Action<GameState> UpdateGameStateEvent;
+    public static void CallUpdateGameStateEvent(GameState gameState)
+    {
+        UpdateGameStateEvent?.Invoke(gameState);
+    }
+    public static event Action<ItemDetails,bool> ShowTradeUI;
+    public static void CallShowTradeUI(ItemDetails item, bool isSell)
+    {
+        ShowTradeUI?.Invoke(item, isSell);
+    }
+   
 }

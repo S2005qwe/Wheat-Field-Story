@@ -16,7 +16,7 @@ public class Crop : MonoBehaviour
 
     private Transform PlayerTransform => FindObjectOfType<Player>().transform;
 
-    public void ProcessToolAction(ItemDetails tool,TileDetails tile)
+    public void ProcessToolAction(ItemDetails tool, TileDetails tile)
     {
         tileDetails = tile;
 
@@ -25,32 +25,23 @@ public class Crop : MonoBehaviour
         if (requireActionCount == -1) return;
 
         anim = GetComponentInChildren<Animator>();
-        Debug.Log("Animator组件：" + anim + "，当前物体：" + gameObject.name); // 看是否为null
+
         //点击计数器
         if (harvestActionCount < requireActionCount)
         {
-            
             harvestActionCount++;
             //判断是否有动画 树木
-            if (anim != null && cropDetails.hasAnimation) 
+            if (anim != null && cropDetails.hasAnimation)
             {
-                Debug.Log("s");
                 if (PlayerTransform.position.x < transform.position.x)
-                {
-                   
                     anim.SetTrigger("RotateRight");
-                }
-                    
                 else
                     anim.SetTrigger("RotateLeft");
             }
             //播放粒子
-            Debug.Log(transform.position.x);
             if (cropDetails.hasParticalEffect)
-            EventHandler.CallParticalEffectEvent(cropDetails.effectType, transform.position + cropDetails.effectPos);
-            Debug.Log(cropDetails.effectPos);
-            //播放声音
-        
+                EventHandler.CallParticalEffectEvent(cropDetails.effectType, transform.position + cropDetails.effectPos);
+            
         }
 
         if (harvestActionCount >= requireActionCount)
@@ -60,43 +51,42 @@ public class Crop : MonoBehaviour
                 //生成农作物
                 SpawnHarvestItems();
             }
-            else if(cropDetails.hasAnimation) 
+            else if (cropDetails.hasAnimation)
             {
                 if (PlayerTransform.position.x < transform.position.x)
-                {
                     anim.SetTrigger("FallingRight");
-                }
-                    
                 else
                     anim.SetTrigger("FallingLeft");
-
+               
                 StartCoroutine(HarvestAfterAnimation());
             }
         }
-        
     }
+
     private IEnumerator HarvestAfterAnimation()
     {
-        while(!anim.GetCurrentAnimatorStateInfo(0).IsName("END"))
+        while (!anim.GetCurrentAnimatorStateInfo(0).IsName("END"))
         {
             yield return null;
         }
 
         SpawnHarvestItems();
-        //如果有转换的
+
+        //转换新物体
         if (cropDetails.transferItemID > 0)
         {
             CreateTransferCrop();
         }
     }
+
     private void CreateTransferCrop()
     {
         tileDetails.seedItemID = cropDetails.transferItemID;
         tileDetails.daysSinceLastHarvest = -1;
         tileDetails.growthDays = 0;
+
         EventHandler.CallRefreshCurrentMap();
     }
-
 
     /// <summary>
     /// 生成果实
@@ -124,7 +114,7 @@ public class Crop : MonoBehaviour
                 {
                     EventHandler.CallHarvestAtPlayerPosition(cropDetails.producedItemID[i]);
                 }
-                else  //世界地图上生成物品
+                else    //世界地图上生成物品
                 {
                     //判断应该生成的物品方向
                     var dirX = transform.position.x > PlayerTransform.position.x ? 1 : -1;
@@ -136,26 +126,27 @@ public class Crop : MonoBehaviour
                 }
             }
         }
-        if(tileDetails!=null)
+
+        if (tileDetails != null)
         {
             tileDetails.daysSinceLastHarvest++;
-            //是否可以重复生长
 
-            if (cropDetails.daysToRegrow > 0 && tileDetails.daysSinceLastHarvest < cropDetails.regrowTimes) 
+            //是否可以重复生长
+            if (cropDetails.daysToRegrow > 0 && tileDetails.daysSinceLastHarvest < cropDetails.regrowTimes)
             {
                 tileDetails.growthDays = cropDetails.TotalGrowthDays - cropDetails.daysToRegrow;
                 //刷新种子
                 EventHandler.CallRefreshCurrentMap();
             }
-            else //不可以重复生长
+            else    //不可重复生长
             {
                 tileDetails.daysSinceLastHarvest = -1;
                 tileDetails.seedItemID = -1;
-                //FIXME:自己设计 拔出植物坑恢复原状
-                //tileDetails.daysSinceDug = -1;
+                //TODO:自己设计
+                //tileDetails.daySinceDug = -1;
             }
+
             Destroy(gameObject);
         }
-       
     }
 }

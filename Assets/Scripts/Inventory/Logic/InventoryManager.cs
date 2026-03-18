@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -18,6 +19,9 @@ namespace SFarm.Inventory
         [Header("背包数据")]
         public InventoryBag_SO PlayerBag;
 
+        [Header("交易")]
+        public int playerMoney;
+        
 
         private void OnEnable()
         {
@@ -35,7 +39,7 @@ namespace SFarm.Inventory
             //是否已经有该物品
             var index = GetItemIndexInBag(ID);
             AddItemAtIndex(ID, index, 1);
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
 
         private void Start()
@@ -68,14 +72,14 @@ namespace SFarm.Inventory
         /// <param name="item"></param>
         /// <param name="toDestory"></param>
 
-        public void AddItem(Item item,bool toDestory)
+        public void AddItem(Item item, bool toDestory)
         {
             //是否已经有该物品
             var index = GetItemIndexInBag(item.itemID);
-             AddItemAtIndex(item.itemID,index, 1);  
+            AddItemAtIndex(item.itemID, index, 1);
 
-            Debug.Log(GetItemDetails(item.itemID).itemId+"Name: "+GetItemDetails(item.itemID).itemName);
-            
+            Debug.Log(GetItemDetails(item.itemID).itemId + "Name: " + GetItemDetails(item.itemID).itemName);
+
             //如果可以销毁，则销毁物品
             if (toDestory)
             {
@@ -83,7 +87,7 @@ namespace SFarm.Inventory
             }
 
             //更新背包UI 
-            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player,PlayerBag.itemList);
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
 
 
@@ -93,7 +97,7 @@ namespace SFarm.Inventory
         /// <returns></returns>
         private bool CheckBagCapacity()
         {
-            for (int i = 0; i < PlayerBag.itemList.Count;i++)
+            for (int i = 0; i < PlayerBag.itemList.Count; i++)
             {
                 if (PlayerBag.itemList[i].itemID == 0)
                     return true;
@@ -123,15 +127,15 @@ namespace SFarm.Inventory
         /// <param name="ID">物品ID</param>
         /// <param name="index">序号</param>
         /// <param name="amount">数据</param>
-        private void AddItemAtIndex(int ID,int index,int amount)
+        private void AddItemAtIndex(int ID, int index, int amount)
         {
             //通过索引来看，如果背包中没有这个物品,同时有空位
-            if (index == -1&& CheckBagCapacity())
+            if (index == -1 && CheckBagCapacity())
             {
                 //则创建一个物品
                 var item = new InventoryItem { itemID = ID, itemAmount = amount };
                 //创建物品后，查找空位
-                for(int i=0;i<PlayerBag.itemList.Count;i++)
+                for (int i = 0; i < PlayerBag.itemList.Count; i++)
                 {
                     if (PlayerBag.itemList[i].itemID == 0)
                     {
@@ -142,8 +146,8 @@ namespace SFarm.Inventory
             }
             else  //背包里有这个东西
             {
-                int currentAmount = PlayerBag.itemList[index].itemAmount+amount;
-                var item =new InventoryItem { itemID = ID ,itemAmount=currentAmount};
+                int currentAmount = PlayerBag.itemList[index].itemAmount + amount;
+                var item = new InventoryItem { itemID = ID, itemAmount = currentAmount };
                 PlayerBag.itemList[index] = item;
             }
         }
@@ -154,24 +158,24 @@ namespace SFarm.Inventory
         /// </summary>
         /// <param name="fromIndex">起始序号</param>
         /// <param name="toIndex">目标数据序号</param>
-        public void SwapItem(int fromIndex,int toIndex)
+        public void SwapItem(int fromIndex, int toIndex)
         {
             InventoryItem currentItem = PlayerBag.itemList[fromIndex];
-            InventoryItem targetItem = PlayerBag.itemList[ toIndex ];
+            InventoryItem targetItem = PlayerBag.itemList[toIndex];
 
-            if(targetItem.itemID !=0)
+            if (targetItem.itemID != 0)
             {
                 PlayerBag.itemList[fromIndex] = targetItem;
-                PlayerBag.itemList[ toIndex ] = currentItem;
+                PlayerBag.itemList[toIndex] = currentItem;
             }
             else
             {
                 PlayerBag.itemList[toIndex] = currentItem;
-                PlayerBag.itemList[fromIndex]=new InventoryItem();
+                PlayerBag.itemList[fromIndex] = new InventoryItem();
             }
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
-        private void ReMoveItem(int ID,int removeAmount)
+        private void ReMoveItem(int ID, int removeAmount)
         {
             var index = GetItemIndexInBag(ID);
 
@@ -189,6 +193,33 @@ namespace SFarm.Inventory
 
             EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
         }
+       public void TradeItem(ItemDetails itemDetails, int amount, bool isSellTrade)
+        {
+            int cost = itemDetails.itemPrice * amount;
+            //获得背包物品位置
+            int index = GetItemIndexInBag(itemDetails.itemId);
+
+            if (isSellTrade)     //卖
+            {
+                if (PlayerBag.itemList[index].itemAmount >= amount)
+                {
+                    ReMoveItem(itemDetails.itemId, amount);
+                    cost = (int)(cost * itemDetails.sellPercentage);
+                    playerMoney += cost;
+                }
+            }
+            else if (playerMoney - cost >= 0)    //买
+            {
+                if(CheckBagCapacity())
+                {
+                    AddItemAtIndex(itemDetails.itemId, index, amount);
+                }
+                playerMoney -= cost;
+            }
+            //刷新UI
+            EventHandler.CallUpdateInventoryUI(InventoryLocation.Player, PlayerBag.itemList);
+        }
     }
+
 }
 

@@ -17,17 +17,35 @@ MonoBehaviour:
     gotoSceneName: 02.Home
     scenePathList:
     - sceneName: 02.Home
-      fromGridCell: {x: -8, y: -5}
+      fromGridCell: {x: -6, y: -15}
       gotoGridCell: {x: 99999, y: 99999}
     - sceneName: 01.Field
       fromGridCell: {x: 99999, y: 99999}
-      gotoGridCell: {x: -6, y: -15}
+      gotoGridCell: {x: -5, y: 10}
   - fromSceneName: 02.Home
     gotoSceneName: 01.Field
     scenePathList:
     - sceneName: 01.Field
-      fromGridCell: {x: -6, y: -15}
+      fromGridCell: {x: -5, y: 10}
       gotoGridCell: {x: 99999, y: 99999}
     - sceneName: 02.Home
       fromGridCell: {x: 99999, y: 99999}
-      gotoGridCell: {x: -8, y: -5}
+      gotoGridCell: {x: -6, y: -15}
+  - fromSceneName: 01.Field
+    gotoSceneName: 03.Shop
+    scenePathList:
+    - sceneName: 03.Shop
+      fromGridCell: {x: -20, y: -2}
+      gotoGridCell: {x: 99999, y: 99999}
+    - sceneName: 01.Field
+      fromGridCell: {x: 99999, y: 99999}
+      gotoGridCell: {x: 16, y: 19}
+  - fromSceneName: 03.Shop
+    gotoSceneName: 01.Field
+    scenePathList:
+    - sceneName: 01.Field
+      fromGridCell: {x: 16, y: 19}
+      gotoGridCell: {x: 99999, y: 99999}
+    - sceneName: 03.Shop
+      fromGridCell: {x: 99999, y: 99999}
+      gotoGridCell: {x: -20, y: -5}
