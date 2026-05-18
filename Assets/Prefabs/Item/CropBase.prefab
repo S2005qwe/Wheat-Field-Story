@@ -94,8 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8506106182421236388}
   - component: {fileID: 727596560363737741}
-  - component: {fileID: 7520860311133311641}
-  - component: {fileID: 4036940736466897019}
+  - component: {fileID: 1412156538716040024}
   m_Layer: 0
   m_Name: CropBase
   m_TagString: Untagged
@@ -164,33 +163,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7520860311133311641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7431985173989406455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74d739fecc016846a4b69bec10efbcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemID: 1023
-  itemDetails:
-    itemId: 0
-    itemName: 
-    itemType: 0
-    itemIcon: {fileID: 0}
-    itemOnWorldSprite: {fileID: 0}
-    itemDescription: 
-    itemUseRadius: 0
-    canPickedUp: 0
-    canDropped: 0
-    canCarried: 0
-    itemPrice: 0
-    sellPercentage: 0
---- !u!114 &4036940736466897019
+--- !u!114 &1412156538716040024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,6 +195,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 0
   tileDetails:
     gridX: 0
     gridY: 0

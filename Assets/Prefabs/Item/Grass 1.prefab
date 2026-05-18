@@ -54,7 +54,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4036940736466897019, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 1412156538716040024, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3804256031156096882}
   m_SourcePrefab: {fileID: 100100000, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+--- !u!1 &7234017055632818337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+  m_PrefabInstance: {fileID: 236389557904815702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3804256031156096882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7234017055632818337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74d739fecc016846a4b69bec10efbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemID: 1023
+  itemDetails:
+    itemId: 0
+    itemName: 
+    itemType: 0
+    itemIcon: {fileID: 0}
+    itemOnWorldSprite: {fileID: 0}
+    itemDescription: 
+    itemUseRadius: 0
+    canPickedUp: 0
+    canDropped: 0
+    canCarried: 0
+    itemPrice: 0
+    sellPercentage: 0

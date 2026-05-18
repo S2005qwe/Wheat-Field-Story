@@ -1,3 +1,4 @@
+using SFarm.AStar;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,8 @@ namespace SFarm.AStar
     public class GridNodes
     {
         private int width;
-
         private int height;
-
         private Node[,] gridNode;
-
 
         /// <summary>
         /// 构造函数初始化节点范围数组
@@ -46,3 +44,5 @@ namespace SFarm.AStar
     }
 
 }
+
+

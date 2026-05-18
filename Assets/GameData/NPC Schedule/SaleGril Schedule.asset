@@ -13,12 +13,30 @@ MonoBehaviour:
   m_Name: SaleGril Schedule
   m_EditorClassIdentifier: 
   scheduleList:
-  - hour: 1
+  - hour: 10
+    minute: 0
+    day: 0
+    priority: 0
+    season: 0
+    targetScene: 03.Shop
+    targetGridPosition: {x: 5, y: -21}
+    clipAtStop: {fileID: 0}
+    interactable: 1
+  - hour: 17
     minute: 0
     day: 0
     priority: 0
     season: 0
     targetScene: 01.Field
-    targetGridPosition: {x: -7, y: 6}
+    targetGridPosition: {x: 1, y: 6}
+    clipAtStop: {fileID: 0}
+    interactable: 1
+  - hour: 18
+    minute: 0
+    day: 0
+    priority: 0
+    season: 0
+    targetScene: 02.Home
+    targetGridPosition: {x: -5, y: 6}
     clipAtStop: {fileID: 0}
     interactable: 1

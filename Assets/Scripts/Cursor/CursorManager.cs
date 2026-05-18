@@ -1,60 +1,74 @@
-using MFarm.CropPlant;
-using SFarm.CropPlant;
-using SFarm.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using SFarm.Map;
+using SFarm.CropPlant;
+using SFarm.Inventory;
+
 public class CursorManager : MonoBehaviour
 {
-    public Sprite normal, tool, seed,item;
-    private Sprite currentSprite;
+    public Sprite normal, tool, seed, item;
+
+    private Sprite currentSprite; //存储当前鼠标图片
     private Image cursorImage;
-    public Image buildImage;
     private RectTransform cursorCanvas;
 
+    //建造图标跟随
+    private Image buildImage;
+
+    //鼠标检测
     private Camera mainCamera;
     private Grid currentGrid;
+
     private Vector3 mouseWorldPos;
     private Vector3Int mouseGridPos;
 
     private bool cursorEnable;
+
     private bool cursorPositionValid;
 
     private ItemDetails currentItem;
+
     private Transform playerTransform => FindObjectOfType<Player>().transform;
+
+
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-      
+        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadEvent;
     }
     private void OnDisable()
     {
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadEvent;
     }
-
-    
 
     private void Start()
     {
         cursorCanvas = GameObject.FindGameObjectWithTag("CursorCanvas").GetComponent<RectTransform>();
         cursorImage = cursorCanvas.GetChild(0).GetComponent<Image>();
+        //拿到建造图标
+        buildImage = cursorCanvas.GetChild(1).GetComponent<Image>();
+        buildImage.gameObject.SetActive(false);
+
         currentSprite = normal;
         SetCursorImage(normal);
+
         mainCamera = Camera.main;
     }
 
     private void Update()
     {
-        if (cursorCanvas == null)
-            return;
+        if (cursorCanvas == null) return;
+
         cursorImage.transform.position = Input.mousePosition;
-        if (!InteractWithUI() && cursorEnable) 
+
+
+        if (!InteractWithUI() && cursorEnable)
         {
             SetCursorImage(currentSprite);
             CheckCursorValid();
@@ -63,21 +77,26 @@ public class CursorManager : MonoBehaviour
         else
         {
             SetCursorImage(normal);
+            buildImage.gameObject.SetActive(false);
         }
     }
+
     private void CheckPlayerInput()
     {
-        if(Input.GetMouseButtonDown(0)&&cursorPositionValid)
+        if (Input.GetMouseButtonDown(0) && cursorPositionValid)
         {
             //执行方法
             EventHandler.CallMouseClickedEvent(mouseWorldPos, currentItem);
         }
     }
+
+
     private void OnBeforeSceneUnloadEvent()
     {
         cursorEnable = false;
     }
-    private void OnAfterSceneLoadedEvent()
+
+    private void OnAfterSceneLoadEvent()
     {
         currentGrid = FindObjectOfType<Grid>();
     }
@@ -99,7 +118,7 @@ public class CursorManager : MonoBehaviour
     {
         cursorPositionValid = true;
         cursorImage.color = new Color(1, 1, 1, 1);
-  
+        buildImage.color = new Color(1, 1, 1, 0.5f);
     }
     /// <summary>
     /// 设置鼠标不可用
@@ -108,7 +127,7 @@ public class CursorManager : MonoBehaviour
     {
         cursorPositionValid = false;
         cursorImage.color = new Color(1, 0, 0, 0.4f);
-      
+        buildImage.color = new Color(1, 0, 0, 0.5f);
     }
     #endregion
 
@@ -116,21 +135,22 @@ public class CursorManager : MonoBehaviour
     /// 物品选择事件函数
     /// </summary>
     /// <param name="itemDetails"></param>
-    /// <param name="isSelcted"></param>
-    private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelcted)
+    /// <param name="isSelected"></param>
+    private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
     {
-        
-        if(!isSelcted)
+
+        if (!isSelected)
         {
             currentItem = null;
             cursorEnable = false;
             currentSprite = normal;
+            buildImage.gameObject.SetActive(false);
         }
-        else //物品被选中才切换图片
+        else
         {
             currentItem = itemDetails;
-            
-            //WORKFLOW:添加所有类型对应的图片
+
+            //TODO:添加所有类型对应图片
             currentSprite = itemDetails.itemType switch
             {
                 ItemType.Seed => seed,
@@ -145,18 +165,29 @@ public class CursorManager : MonoBehaviour
                 _ => normal
             };
             cursorEnable = true;
+
+            //显示建造物图片
+            if (itemDetails.itemType == ItemType.Furniture)
+            {
+                buildImage.gameObject.SetActive(true);
+                buildImage.sprite = itemDetails.itemOnWorldSprite;
+                buildImage.SetNativeSize();
+                buildImage.rectTransform.sizeDelta = new Vector2(buildImage.rectTransform.sizeDelta.x / 5, buildImage.rectTransform.sizeDelta.y / 5);
+            }
         }
-        
     }
+
     private void CheckCursorValid()
     {
-        // 转换鼠标屏幕坐标到世界坐标（z轴设为0，避免深度问题）
         mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -mainCamera.transform.position.z));
         mouseGridPos = currentGrid.WorldToCell(mouseWorldPos);
 
-       
-        
+        //Debug.Log("WorldPos:" + mouseWorldPos + "  GridPos:" + mouseGridPos);
+
         var playerGridPos = currentGrid.WorldToCell(playerTransform.position);
+
+        //建造图片跟随移动
+        buildImage.rectTransform.position = Input.mousePosition;
 
         //判断在使用范围内
         if (Mathf.Abs(mouseGridPos.x - playerGridPos.x) > currentItem.itemUseRadius || Mathf.Abs(mouseGridPos.y - playerGridPos.y) > currentItem.itemUseRadius)
@@ -164,39 +195,32 @@ public class CursorManager : MonoBehaviour
             SetCursorInValid();
             return;
         }
+
         TileDetails currentTile = GirdMapManager.Instance.GetTileDetailsOnMousePosition(mouseGridPos);
+
         if (currentTile != null)
         {
             CropDetails currentCrop = CropManager.Instance.GetCropDetails(currentTile.seedItemID);
             Crop crop = GirdMapManager.Instance.GetCropObject(mouseWorldPos);
 
-            //补充所有物品类型的判断
+            //TODO:补充所有物品类型的判断
             switch (currentItem.itemType)
             {
-                case ItemType.Seed:
-                    if (currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1) SetCursorValid(); else SetCursorInValid(); 
-                    break; 
-                case ItemType.Commodity:
-                    if (currentTile.canDropItem) 
-                        SetCursorValid();
-                    else 
-                        SetCursorInValid();
+                case ItemType.Seed:             //种子
+                    if (currentTile.daysSinceDug > -1 && currentTile.seedItemID == -1) SetCursorValid(); else SetCursorInValid();
                     break;
-                case ItemType.HoeTool:
-                    if (currentTile.canDig)
-                    {
-                        SetCursorValid();
-                    }  
-                    else 
-                        SetCursorInValid();
+                case ItemType.Commodity:        //商品
+                    if (currentTile.canDropItem && currentItem.canDropped) SetCursorValid(); else SetCursorInValid();
                     break;
-                 case ItemType.WaterTool:
-                    //如果被挖且没有被浇水
+                case ItemType.HoeTool:          //锄头
+                    if (currentTile.canDig) SetCursorValid(); else SetCursorInValid();
+                    break;
+                case ItemType.WaterTool:        //浇水
                     if (currentTile.daysSinceDug > -1 && currentTile.daysSinceWatered == -1) SetCursorValid(); else SetCursorInValid();
                     break;
-                case ItemType.BreakTool:
-                case ItemType.ChopTool:
-                    if(crop!=null)
+                case ItemType.BreakTool:        //十字镐
+                case ItemType.ChopTool:         //斧头
+                    if (crop != null)
                     {
                         if (crop.CanHarvest && crop.cropDetails.CheckToolAvaildable(currentItem.itemId)) SetCursorValid(); else SetCursorInValid();
                     }
@@ -205,13 +229,25 @@ public class CursorManager : MonoBehaviour
                 case ItemType.CollectTool:
                     if (currentCrop != null)
                     {
-                        if (currentTile.growthDays >= currentCrop.TotalGrowthDays) SetCursorValid(); else SetCursorInValid();
+                        if (currentCrop.CheckToolAvaildable(currentItem.itemId))
+                            if (currentTile.growthDays >= currentCrop.TotalGrowthDays) SetCursorValid(); else SetCursorInValid();
                     }
                     else
                         SetCursorInValid();
                     break;
-                case ItemType.ReapTool:
+                case ItemType.ReapTool:         //镰刀
                     if (GirdMapManager.Instance.HaveReapableItemsInRadius(mouseWorldPos, currentItem)) SetCursorValid(); else SetCursorInValid();
+                    break;
+                case ItemType.Furniture:
+                    buildImage.gameObject.SetActive(true);
+                    buildImage.rectTransform.position = Input.mousePosition;
+                    
+                    Debug.Log($"[Furniture Check] currentTile={currentTile}, canPlaceFurniture={currentTile?.canPlaceFurniture}, CheckStock={InventoryManager.Instance.CheckStock(currentItem.itemId)}");
+                    
+                    if (currentTile != null && currentTile.canPlaceFurniture && InventoryManager.Instance.CheckStock(currentItem.itemId))
+                        SetCursorValid();
+                    else 
+                        SetCursorInValid();
                     break;
             }
         }
@@ -219,10 +255,14 @@ public class CursorManager : MonoBehaviour
         {
             SetCursorInValid();
         }
-       
     }
 
-    //是否与UI互动
+
+
+    /// <summary>
+    /// 是否与UI互动
+    /// </summary>
+    /// <returns></returns>
     private bool InteractWithUI()
     {
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())

@@ -15,12 +15,12 @@ public class PoolManager : MonoBehaviour
     private void OnEnable()
     {
         EventHandler.ParticalEffectEvent += OnParticalEffectEvent;
-        //EventHandler.InitSoundEffect += InitSoundEffect;
+        EventHandler.InitSoundEffect += InitSoundEffect;
     }
     private void OnDisable()
     {
         EventHandler.ParticalEffectEvent -= OnParticalEffectEvent;
-        //EventHandler.InitSoundEffect -= InitSoundEffect;
+        EventHandler.InitSoundEffect -= InitSoundEffect;
     }
 
     private void Start()
@@ -73,53 +73,53 @@ public class PoolManager : MonoBehaviour
         pool.Release(obj);
     }
 
-    //private void InitSoundEffect(SoundDetails soundDetails)
-    //{
+    // private void InitSoundEffect(SoundDetails soundDetails)
+    // {
     //    ObjectPool<GameObject> pool = poolEffectList[4];
     //    var obj = pool.Get();
 
     //    obj.GetComponent<Sound>().SetSound(soundDetails);
     //    StartCoroutine(DisableSound(pool, obj, soundDetails));
-    //}
+    // }
 
-    //private IEnumerator DisableSound(ObjectPool<GameObject> pool, GameObject obj, SoundDetails soundDetails)
-    //{
+    // private IEnumerator DisableSound(ObjectPool<GameObject> pool, GameObject obj, SoundDetails soundDetails)
+    // {
     //    yield return new WaitForSeconds(soundDetails.soundClip.length);
     //    pool.Release(obj);
-    //}
+    // }
 
-    //private void CreateSoundPool()
-    //{
-    //    var parent = new GameObject(poolPrefabs[4].name).transform;
-    //    parent.SetParent(transform);
+    private void CreateSoundPool()
+    {
+       var parent = new GameObject(poolPrefabs[4].name).transform;
+       parent.SetParent(transform);
 
-    //    for (int i = 0; i < 20; i++)
-    //    {
-    //        GameObject newObj = Instantiate(poolPrefabs[4], parent);
-    //        newObj.SetActive(false);
-    //        soundQueue.Enqueue(newObj);
-    //    }
-    //}
+       for (int i = 0; i < 20; i++)
+       {
+           GameObject newObj = Instantiate(poolPrefabs[4], parent);
+           newObj.SetActive(false);
+           soundQueue.Enqueue(newObj);
+       }
+    }
 
-    //private GameObject GetPoolObject()
-    //{
-    //    if (soundQueue.Count < 2)
-    //        CreateSoundPool();
-    //    return soundQueue.Dequeue();
-    //}
+    private GameObject GetPoolObject()
+    {
+       if (soundQueue.Count < 2)
+           CreateSoundPool();
+       return soundQueue.Dequeue();
+    }
 
-    //private void InitSoundEffect(SoundDetails soundDetails)
-    //{
-    //    var obj = GetPoolObject();
-    //    obj.GetComponent<Sound>().SetSound(soundDetails);
-    //    obj.SetActive(true);
-    //    StartCoroutine(DisableSound(obj, soundDetails.soundClip.length));
-    //}
+    private void InitSoundEffect(SoundDetails soundDetails)
+    {
+       var obj = GetPoolObject();
+       obj.GetComponent<Sound>().SetSound(soundDetails);
+       obj.SetActive(true);
+       StartCoroutine(DisableSound(obj, soundDetails.soundClip.length));
+    }
 
-    //private IEnumerator DisableSound(GameObject obj, float duration)
-    //{
-    //    yield return new WaitForSeconds(duration);
-    //    obj.SetActive(false);
-    //    soundQueue.Enqueue(obj);
-    //}
+    private IEnumerator DisableSound(GameObject obj, float duration)
+    {
+       yield return new WaitForSeconds(duration);
+       obj.SetActive(false);
+       soundQueue.Enqueue(obj);
+    }
 }

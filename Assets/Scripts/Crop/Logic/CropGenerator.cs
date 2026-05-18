@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SFarm.Map;
 
-namespace MFarm.CropPlant
+namespace SFarm.CropPlant
 {
     public class CropGenerator : MonoBehaviour
     {

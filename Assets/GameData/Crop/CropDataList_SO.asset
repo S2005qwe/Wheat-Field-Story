@@ -42,6 +42,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11
   - seedItemID: 1008
     growthDays: 0100000002000000030000000400000004000000
     growPrefabs:
@@ -71,6 +72,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11
   - seedItemID: 1009
     growthDays: 0100000002000000030000000400000004000000
     growPrefabs:
@@ -100,6 +102,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11
   - seedItemID: 1010
     growthDays: 0200000002000000030000000400000005000000
     growPrefabs:
@@ -129,8 +132,9 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11
   - seedItemID: 1016
-    growthDays: 0200000002000000030000000400000005000000
+    growthDays: 0100000002000000030000000400000005000000
     growPrefabs:
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
@@ -158,6 +162,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 1
     effectPos: {x: 0, y: 2.5, z: 0}
+    soundEffect: 3
   - seedItemID: 1017
     growthDays: 00000000
     growPrefabs:
@@ -179,8 +184,9 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11
   - seedItemID: 1018
-    growthDays: 0200000002000000030000000400000005000000
+    growthDays: 0100000002000000030000000400000005000000
     growPrefabs:
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
@@ -208,6 +214,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 2
     effectPos: {x: 0, y: 2.5, z: 0}
+    soundEffect: 11
   - seedItemID: 1019
     growthDays: 00000000
     growPrefabs:
@@ -229,6 +236,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 3
   - seedItemID: 1020
     growthDays: 
     growPrefabs:
@@ -250,6 +258,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 3
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 4
   - seedItemID: 1021
     growthDays: 
     growPrefabs:
@@ -271,6 +280,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 3
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 4
   - seedItemID: 1023
     growthDays: 00000000
     growPrefabs:
@@ -292,6 +302,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 4
     effectPos: {x: 0, y: 1, z: 0}
+    soundEffect: 6
   - seedItemID: 1024
     growthDays: 00000000
     growPrefabs:
@@ -313,6 +324,7 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 4
     effectPos: {x: 0, y: 1, z: 0}
+    soundEffect: 6
   - seedItemID: 1025
     growthDays: 01000000
     growPrefabs:
@@ -334,3 +346,34 @@ MonoBehaviour:
     hasParticalEffect: 1
     effectType: 4
     effectPos: {x: 0, y: 1, z: 0}
+    soundEffect: 6
+  - seedItemID: 1030
+    growthDays: 0100000002000000030000000400000004000000
+    growPrefabs:
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    growSprites:
+    - {fileID: -171679066, guid: 0f8fa26bd67a74039b2bfcc93554e8a2, type: 3}
+    - {fileID: 2025822110, guid: 0f8fa26bd67a74039b2bfcc93554e8a2, type: 3}
+    - {fileID: 1261225977, guid: 0f8fa26bd67a74039b2bfcc93554e8a2, type: 3}
+    - {fileID: 1188135482, guid: 0f8fa26bd67a74039b2bfcc93554e8a2, type: 3}
+    - {fileID: 1454489578, guid: 0f8fa26bd67a74039b2bfcc93554e8a2, type: 3}
+    seasons: 0000000001000000
+    harvestToolItemID: ed030000
+    requireActionCount: 01000000
+    transferItemID: 0
+    producedItemID: 07040000
+    producedMinAmount: 01000000
+    producedMaxAmount: 01000000
+    spawnRadius: {x: 0, y: 0}
+    daysToRegrow: 0
+    regrowTimes: 0
+    generateAtPlayerPosition: 1
+    hasAnimation: 0
+    hasParticalEffect: 0
+    effectType: 0
+    effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 11

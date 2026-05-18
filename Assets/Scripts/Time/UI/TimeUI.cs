@@ -1,9 +1,9 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 public class TimeUI : MonoBehaviour
 {
@@ -20,6 +20,7 @@ public class TimeUI : MonoBehaviour
     public Sprite[] seasonSprites;
 
     private List<GameObject> clockBlocks = new List<GameObject>();
+
     private void Awake()
     {
         for (int i = 0; i < clockParent.childCount; i++)
@@ -28,6 +29,7 @@ public class TimeUI : MonoBehaviour
             clockParent.GetChild(i).gameObject.SetActive(false);
         }
     }
+
     private void OnEnable()
     {
         EventHandler.GameMinuteEvent += OnGameMinuteEvent;
@@ -40,7 +42,7 @@ public class TimeUI : MonoBehaviour
         EventHandler.GameDataEvent -= OnGameDataEvent;
     }
 
-    private void OnGameMinuteEvent(int minute, int hour,int day,Season season)
+    private void OnGameMinuteEvent(int minute, int hour, int day, Season season)
     {
         timeText.text = hour.ToString("00") + ":" + minute.ToString("00");
     }
@@ -49,7 +51,6 @@ public class TimeUI : MonoBehaviour
     {
         dateText.text = year + "Äê" + month.ToString("00") + "ÔÂ" + day.ToString("00") + "ÈÕ";
         seasonImage.sprite = seasonSprites[(int)season];
-
         SwitchHourImage(hour);
         DayNightImageRotate(hour);
     }
@@ -61,6 +62,7 @@ public class TimeUI : MonoBehaviour
     private void SwitchHourImage(int hour)
     {
         int index = hour / 4;
+
         if (index == 0)
         {
             foreach (var item in clockBlocks)
@@ -70,20 +72,23 @@ public class TimeUI : MonoBehaviour
         }
         else
         {
-            for(int i = 0; i < clockBlocks.Count;i++)
+            for (int i = 0; i < clockBlocks.Count; i++)
             {
-                if(i < index + 1)
+                if (i < index + 1)
+                {
                     clockBlocks[i].SetActive(true);
+                }
                 else
+                {
                     clockBlocks[i].SetActive(false);
+                }
             }
         }
-
     }
+
     private void DayNightImageRotate(int hour)
     {
         var target = new Vector3(0, 0, hour * 15 - 90);
         dayNightImage.DORotate(target, 1f, RotateMode.Fast);
     }
-
 }

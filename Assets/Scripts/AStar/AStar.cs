@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SFarm.AStar;
 using SFarm.Map;
 
 namespace SFarm.AStar

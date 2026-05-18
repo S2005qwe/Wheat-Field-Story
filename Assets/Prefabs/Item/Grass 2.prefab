@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4581551384085222579, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+      propertyPath: itemID
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
       propertyPath: m_Name
       value: Grass 2
@@ -68,19 +72,20 @@ PrefabInstance:
     - {fileID: 5796423880124548494, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7520860311133311641, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 4036940736466897019, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 1412156538716040024, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2062990414587961964}
+      addedObject: {fileID: 3742733039981154641}
   m_SourcePrefab: {fileID: 100100000, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
 --- !u!1 &8808717371110499202 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
   m_PrefabInstance: {fileID: 2097954930852697461}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-2062990414587961964
+--- !u!114 &3742733039981154641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

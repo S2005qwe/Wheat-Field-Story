@@ -63,6 +63,10 @@ namespace SFarm.CropPlant
         /// <param name="cropDetails">种子信息</param>
         private void DisplayCropPlant(TileDetails tileDetails, CropDetails cropDetails)
         {
+            if (cropParent == null)
+            {
+                cropParent = GameObject.FindWithTag("CropParent").transform;
+            }
             //成长阶段
             int growthStages = cropDetails.growthDays.Length;
             int currentStage = 0;
@@ -86,6 +90,7 @@ namespace SFarm.CropPlant
             Vector3 pos = new Vector3(tileDetails.gridX + 0.5f, tileDetails.gridY + 0.5f, 0);
 
             GameObject cropInstance = Instantiate(cropPrefab, pos, Quaternion.identity, cropParent);
+            cropInstance.transform.SetParent(cropParent); // 设置父对象
             cropInstance.GetComponentInChildren<SpriteRenderer>().sprite = cropSprite;
             cropInstance.GetComponent<Crop>().cropDetails = cropDetails;
             cropInstance.GetComponent<Crop>().tileDetails = tileDetails;

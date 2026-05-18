@@ -49,3 +49,21 @@ MonoBehaviour:
     - sceneName: 03.Shop
       fromGridCell: {x: 99999, y: 99999}
       gotoGridCell: {x: -20, y: -5}
+  - fromSceneName: 00.Start
+    gotoSceneName: 01.Field
+    scenePathList:
+    - sceneName: 01.Field
+      fromGridCell: {x: -5, y: -10}
+      gotoGridCell: {x: 99999, y: 99999}
+    - sceneName: 00.Start
+      fromGridCell: {x: 99999, y: 99999}
+      gotoGridCell: {x: -24, y: 13}
+  - fromSceneName: 01.Field
+    gotoSceneName: 00.Start
+    scenePathList:
+    - sceneName: 00.Start
+      fromGridCell: {x: -24, y: 13}
+      gotoGridCell: {x: 99999, y: 99999}
+    - sceneName: 01.Field
+      fromGridCell: {x: 99999, y: 99999}
+      gotoGridCell: {x: -5, y: -10}

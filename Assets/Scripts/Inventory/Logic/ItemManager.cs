@@ -1,21 +1,27 @@
 using SFarm.Inventory;
+using SFarm.Save;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SFarm.Inventory
 {
-    public class ItemManager : MonoBehaviour
+    public class ItemManager : MonoBehaviour,ISaveable
     {
-        public Item itemPrefab;  //ÎïÆ·Ô¤ÖÆÌå
+        public Item itemPrefab;  //ç‰©å“é¢„åˆ¶ä½“
 
         public Item bounceItemPrefab;
 
-        private Transform itemParent; //ÓÃÓÚÎïÆ··ÅÔÚ¸¸ÎïÌåÏÂ
+        private Transform itemParent; //ç”¨äºç‰©å“æ”¾åœ¨çˆ¶ç‰©ä½“ä¸‹
 
         private Transform PlayerTransform => FindObjectOfType<Player>().transform;
+
+        public string GUID => GetComponent<DataGUID>().guid;
+
         private Dictionary<string, List<SceneItem>> sceneItemDict = new Dictionary<string, List<SceneItem>>();
+        private Dictionary<string, List<SceneFurniture>> sceneFurnitureDict = new Dictionary<string, List<SceneFurniture>>();
 
         private void OnEnable()
         {
@@ -23,7 +29,7 @@ namespace SFarm.Inventory
             EventHandler.DropItemEvent += OnDropItemEvent;
             EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-
+            EventHandler.BuildFurnitureEvent += OnBuildFurnitureEvent;
         }
         private void OnDisable()
         {
@@ -31,27 +37,47 @@ namespace SFarm.Inventory
             EventHandler.DropItemEvent -= OnDropItemEvent;
             EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
             EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+            EventHandler.BuildFurnitureEvent -= OnBuildFurnitureEvent;
+        }
+
+        void Start()
+        {
+           ISaveable saveable = this;
+           saveable.RegisterSaveable();
+        }
+
+        private void OnBuildFurnitureEvent(int ID,Vector3 mousePos)
+        {
+            BluePrintDetails bluePrint = InventoryManager.Instance.bluePrintData.GetBluePrintDetails(ID);
+            var buildItem = Instantiate(bluePrint.buildPrefab,mousePos,Quaternion.identity,itemParent);
+            if(buildItem.GetComponent<Box>())
+            {
+                buildItem.GetComponent<Box>().index = InventoryManager.Instance.BoxDataAmount;
+               buildItem.GetComponent<Box>().InitBox(buildItem.GetComponent<Box>().index);
+            }
         }
 
         private void OnBeforeSceneUnloadEvent()
         {
             GetAllSceneItems();
+            GetAllSceneFurniture();
         }
 
 
-        //¼ÓÔØ³¡¾°ºóÑ°ÕÒ¸¸ÎïÌå
+        //åŠ è½½åœºæ™¯åå¯»æ‰¾çˆ¶ç‰©ä½“
         private void OnAfterSceneLoadedEvent()
         {
             itemParent = GameObject.FindWithTag("ItemParent").transform;
             RecreateAllItems();
+            RebuildFurniture();
         }
 
 
         /// <summary>
-        /// ÔÚÖ¸¶¨×ø±êÎ»ÖÃÉú³ÉÎïÆ·
+        /// åœ¨æŒ‡å®šåæ ‡ä½ç½®ç”Ÿæˆç‰©å“
         /// </summary>
-        /// <param name="ID">ÎïÆ·ID</param>
-        /// <param name="pos">ÊÀ½ç×ø±ê</param>
+        /// <param name="ID">ç‰©å“ID</param>
+        /// <param name="pos">ä¸–ç•Œåæ ‡</param>
         private void OnInstaniateItemInScene(int ID, Vector3 pos)
         {
             var item = Instantiate(bounceItemPrefab, pos, Quaternion.identity, itemParent);
@@ -60,7 +86,7 @@ namespace SFarm.Inventory
         }
         private void OnDropItemEvent(int ID,Vector3 mousepos, ItemType itemType)
         {
-            //ÈÓ¶«Î÷Ğ§¹û
+            //æ‰”ä¸œè¥¿æ•ˆæœ
             if (itemType == ItemType.Seed) return;
 
             Debug.Log("!");
@@ -71,13 +97,13 @@ namespace SFarm.Inventory
         }
 
         /// <summary>
-        /// »ñÈ¡³¡¾°ÖĞÈ«²¿ÎïÆ·
+        /// è·å–åœºæ™¯ä¸­å…¨éƒ¨ç‰©å“
         /// </summary>
         private void GetAllSceneItems()
         {
             List<SceneItem> currentSceneItems = new List<SceneItem>();
 
-            //ÄÃµ½µ±Ç°³¡¾°ÎïÆ·
+            //æ‹¿åˆ°å½“å‰åœºæ™¯ç‰©å“
             foreach (var item in FindObjectsOfType<Item>())
             {
                 SceneItem sceneItem = new SceneItem()
@@ -89,30 +115,30 @@ namespace SFarm.Inventory
             }
             if (sceneItemDict.ContainsKey(SceneManager.GetActiveScene().name))
             {
-                //ÕÒµ½Êı¾İ¾Í¸üĞÂitemÊı¾İÁĞ±í
+                //æ‰¾åˆ°æ•°æ®å°±æ›´æ–°itemæ•°æ®åˆ—è¡¨
                 sceneItemDict[SceneManager.GetActiveScene().name] = currentSceneItems;
 
             }
             else
             {
-                //Èç¹ûÊÇĞÂ³¡¾°
+                //å¦‚æœæ˜¯æ–°åœºæ™¯
                 sceneItemDict.Add(SceneManager.GetActiveScene().name, currentSceneItems);
             }
         }
 
         /// <summary>
-        /// Ë¢ĞÂÖØ½¨µ±Ç°³¡¾°ÎïÆ·
+        /// åˆ·æ–°é‡å»ºå½“å‰åœºæ™¯ç‰©å“
         /// </summary>
         private void RecreateAllItems()
         {
-            //´´½¨Ò»¸öÁĞ±í´æ´¢µ±Ç°ÎïÆ·
+            //åˆ›å»ºä¸€ä¸ªåˆ—è¡¨å­˜å‚¨å½“å‰ç‰©å“
             List<SceneItem> currentSceneItems = new List<SceneItem>();
 
             if (sceneItemDict.TryGetValue(SceneManager.GetActiveScene().name, out currentSceneItems))
             {
                 if (currentSceneItems != null)
                 {
-                    //Çå³¡
+                    //æ¸…åœº
                     foreach (var item in FindObjectsOfType<Item>())
                     {
                         Destroy(item.gameObject);
@@ -125,6 +151,77 @@ namespace SFarm.Inventory
                 }
 
             }
+        }
+
+        private void GetAllSceneFurniture()
+        {
+            List<SceneFurniture> currentSceneFurniture = new List<SceneFurniture>();
+
+            //æ‹¿åˆ°å½“å‰åœºæ™¯ç‰©å“
+            foreach (var item in FindObjectsOfType<Furniture>())
+            {
+                SceneFurniture sceneFurniture = new SceneFurniture()
+                {
+                    itemID = item.itemID,
+                    position = new SerializableVector3(item.transform.position)
+                };
+                if(item.GetComponent<Box>())
+                sceneFurniture.boxIndex = item.GetComponent<Box>().index;
+                
+                currentSceneFurniture.Add(sceneFurniture);
+            }
+            if (sceneFurnitureDict.ContainsKey(SceneManager.GetActiveScene().name))
+            {
+                //æ‰¾åˆ°æ•°æ®å°±æ›´æ–°itemæ•°æ®åˆ—è¡¨
+                sceneFurnitureDict[SceneManager.GetActiveScene().name] = currentSceneFurniture;
+
+            }
+            else
+            {
+                //å¦‚æœæ˜¯æ–°åœºæ™¯
+                sceneFurnitureDict.Add(SceneManager.GetActiveScene().name, currentSceneFurniture);
+            }
+        }
+
+        private void RebuildFurniture()
+        {
+            List<SceneFurniture> currentSceneFurniture = new List<SceneFurniture>();
+            if(sceneFurnitureDict.TryGetValue(SceneManager.GetActiveScene().name, out currentSceneFurniture))
+            {
+                if(currentSceneFurniture != null)
+                {
+                    foreach (SceneFurniture sceneFurniture in currentSceneFurniture)
+                    {
+                        BluePrintDetails bluePrint = InventoryManager.Instance.bluePrintData.GetBluePrintDetails(sceneFurniture.itemID);
+                        var buildItem = Instantiate(bluePrint.buildPrefab, sceneFurniture.position.ToVector3(), Quaternion.identity,itemParent);
+                        if(buildItem.GetComponent<Box>())
+                        {
+                            buildItem.GetComponent<Box>().InitBox(sceneFurniture.boxIndex);
+                        }
+                    
+                    }
+                }
+            }
+        }
+
+       public GameSaveData GenerateSaveData()
+        {
+            GetAllSceneItems();
+            GetAllSceneFurniture();
+            GameSaveData saveData = new GameSaveData();
+            saveData.sceneItemDict = this.sceneItemDict;
+            saveData.sceneFurnitureDict = this.sceneFurnitureDict;
+
+            return saveData;
+        }
+
+        public void RestoreData(GameSaveData saveData)
+        {
+            this.sceneItemDict = saveData.sceneItemDict;
+            this.sceneFurnitureDict = saveData.sceneFurnitureDict;
+
+            RecreateAllItems();
+            RebuildFurniture();
         }
     }
 }

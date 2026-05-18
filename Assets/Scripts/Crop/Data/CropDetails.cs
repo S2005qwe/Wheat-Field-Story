@@ -64,7 +64,7 @@ public class CropDetails
 
     public Vector3 effectPos;                 //ÌØÐ§×ø±ê
 
-    //public SoundName soundEffect;
+    public SoundName soundEffect;
 
 
     public bool CheckToolAvaildable(int toolID)

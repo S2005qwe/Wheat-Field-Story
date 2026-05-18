@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.91
       objectReference: {fileID: 0}
+    - target: {fileID: 4581551384085222579, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+      propertyPath: itemID
+      value: 1025
+      objectReference: {fileID: 0}
     - target: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
       propertyPath: m_Name
       value: Grass 3
@@ -76,19 +80,20 @@ PrefabInstance:
     - {fileID: 5796423880124548494, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 7520860311133311641, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     - {fileID: 4036940736466897019, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
+    - {fileID: 1412156538716040024, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2361545113985744331}
+      addedObject: {fileID: 932476740656533113}
   m_SourcePrefab: {fileID: 100100000, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
 --- !u!1 &5153451007007237756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7431985173989406455, guid: d133222dc85eac246b5bbf85d659a08f, type: 3}
   m_PrefabInstance: {fileID: 2352861702775640203}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2361545113985744331
+--- !u!114 &932476740656533113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

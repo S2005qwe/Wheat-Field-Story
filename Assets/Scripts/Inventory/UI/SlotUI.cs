@@ -24,6 +24,18 @@ namespace SFarm.Inventory
         public ItemDetails itemDetails;
 
         public int itemAmount;
+        public InventoryLocation Location
+        {
+            get
+            {
+                return slotType switch
+                {
+                    SlotType.Bag => InventoryLocation.Player,
+                    SlotType.Box => InventoryLocation.Box,
+                    _ => InventoryLocation.Player
+                };
+            }
+        }
 
         public  InventoryUI inventoryUI =>GetComponentInParent<InventoryUI>();
         private void Start()
@@ -129,6 +141,10 @@ namespace SFarm.Inventory
                 {
                     EventHandler.CallShowTradeUI(itemDetails, true);
                 }
+                else if(slotType != SlotType.Shop && targetSlot.slotType != SlotType.Shop && slotType!=targetSlot.slotType) //交换箱子
+                {
+                    InventoryManager.Instance.SwapItem(Location,slotIndex, targetSlot.Location, targetSlot.slotIndex);
+                }
 
                 //清空所有高亮显示
                 inventoryUI.UpdateSlotHightlight(-1);
@@ -140,7 +156,8 @@ namespace SFarm.Inventory
                 {
                     //鼠标对应世界地图上的坐标
                     var pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-                    EventHandler.CallInstantiateItemInScene(itemDetails.itemId, pos);
+                    //EventHandler.CallInstantiateItemInScene(itemDetails.itemId, pos);
+                     EventHandler.CallDropItemEvent(itemDetails.itemId, pos, itemDetails.itemType);
                 }
             }
         }

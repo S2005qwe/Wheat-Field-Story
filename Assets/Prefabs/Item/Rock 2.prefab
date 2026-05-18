@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2431051653228501425}
   - component: {fileID: 7747417898834725218}
   - component: {fileID: 5607839937299781292}
-  - component: {fileID: 6129916684724339302}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -131,20 +130,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6263151, y: 0.60157967}
   m_EdgeRadius: 0
---- !u!114 &6129916684724339302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1899281931172599468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c99fc5663a75af4ebba73ef773d4515, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seedItemID: 1020
-  growthDays: 0
 --- !u!1 &6711854097255004095
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +141,7 @@ GameObject:
   - component: {fileID: 7253183074442507427}
   - component: {fileID: 1388833402279358009}
   - component: {fileID: 3332530696801190408}
+  - component: {fileID: 9094034130142095118}
   m_Layer: 0
   m_Name: Rock 2
   m_TagString: Untagged
@@ -211,6 +197,7 @@ MonoBehaviour:
     hasParticalEffect: 0
     effectType: 0
     effectPos: {x: 0, y: 0, z: 0}
+    soundEffect: 0
   tileDetails:
     gridX: 0
     gridY: 0
@@ -276,3 +263,17 @@ PolygonCollider2D:
       - {x: 0.3198706, y: -0.31146073}
       - {x: 0.8458042, y: 0.17505926}
   m_UseDelaunayMesh: 0
+--- !u!114 &9094034130142095118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711854097255004095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c99fc5663a75af4ebba73ef773d4515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seedItemID: 1020
+  growthDays: 0
